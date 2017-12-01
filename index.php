@@ -23,7 +23,7 @@
         <li><a href="#">Navbar Link</a></li>
         <li><a href="badges.html">Components</a></li>
         <li><a href="collapsible.html">JavaScript</a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">7-day reports<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
@@ -35,12 +35,12 @@
   <div class="section no-pad-bot" id="index-banner">
     <div class="container light-blue-text">
       <br><br>
-      <h1 class="header center">Starter Template</h1>
+      <h1 class="header center">Teletrax reports will come here</h1>
       <div class="row center">
-        <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
+        <h5 class="header col s12 light">stay tuned</h5>
       </div>
       <div class="row center">
-        <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light blue.darken-4">Get Started</a>
+        <a href="http://access.enex.online" target='_blank' id="download-button" class="btn-large waves-effect waves-light blue.darken-4">ENEX App access</a>
       </div>
       <br><br>
 
