@@ -1,3 +1,16 @@
+<?php
+require_once("../fact15/fact_config.php");
+require_once("teletrax_lib.php"); // include PHP functions library
+if (!isset($_GET['p'])) {$p_message = "NOPE";} else  {$p_message = $_GET['p'] ; } // check messages
+if (!isset($_GET['id'])) {$p_fact_id =0; } else  {$p_fact_id = $_GET['id']; } // check id parameter
+if (!isset($_GET['fc']))  {$p_funct = 'NOPE' ; }  else  {$p_funct = $_GET['fc']; } // check function setting (edit,create ...)
+if (!isset($_GET['dt'])or ($_GET['dt']=='ALL')) {$p_date = 'ALL'; $hlp_date=$today;} else  {$p_date = $_GET['dt']; $hlp_date=$p_date; } // check date parameter
+if (!isset($_GET['tb'])) {  $p_tab = 1 ;} else  {
+    $p_tab = $_GET['tb'];
+
+} // check tab setting
+$date_start = date("Y-m-d");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,6 +62,17 @@
 
 
   <div class="container">
+     <div>
+         <?PHP
+        if ($p_message != "NOPE") { echo "<div class='' style='width:100%; text-align: center;'><span class='  alert-box info radius'>",$p_message,"</span></div>";}
+        switch($p_tab) {
+            case 1  : ttx_latest(); break;
+            case 14  : fact15_teletrax($p_fact_id,$hlp_date) ; break;
+            default :
+                ttx_latest() ; break;
+        }
+        ?>
+     </div>
     <div class="section">
 
       <!--   Icon Section   -->
