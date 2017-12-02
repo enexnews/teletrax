@@ -9,6 +9,9 @@ if (!isset($_GET['tb'])) {  $p_tab = 1 ;} else  {
     $p_tab = $_GET['tb'];
 
 } // check tab setting
+$pagetitle[1] = 'Latest Hits' ;
+$pagetitle[2] = 'TOP 20 Partners '. date("F-Y",strtotime($p_date)) ;
+$pagetitle[3] = 'TOP 20 Stories '. date("F-Y",strtotime($p_date)) ;
 $date_start = date("Y-m-d");
 ?>
 <!DOCTYPE html>
@@ -25,17 +28,16 @@ $date_start = date("Y-m-d");
 </head>
 <body>
 <ul id="dropdown1" class="dropdown-content">
-    <li><a href="#!">one</a></li>
-    <li><a href="#!">two</a></li>
+    <li><a href="index.php?tb=2&dt=2017-08-01">TOP Partners </a></li>
+    <li><a href="index.php?tb=3&dt=2017-08-01">TOP Stories </a></li>
     <li class="divider"></li>
     <li><a href="#!">three</a></li>
 </ul>
   <nav class="enex_blue2" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="css/ENEXlogo.png" style="width:220px; height:45px; margin-top:10px;"></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
+
+        <li><a href="index.php">HOME</a></li>
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1">7-day reports<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
 
@@ -47,16 +49,7 @@ $date_start = date("Y-m-d");
   </nav>
   <div class="section no-pad-bot" id="index-banner">
     <div class="container enex_blue2text">
-      <br><br>
-      <h1 class="header center">Teletrax reports will come here</h1>
-      <div class="row center">
-        <h5 class="header col s12 light">stay tuned</h5>
-      </div>
-      <div class="row center">
-        <a href="http://access.enex.online" target='_blank' id="download-button" class="btn-large waves-effect waves-light blue.darken-4">ENEX App access</a>
-      </div>
-      <br><br>
-
+      <h4 class="center">Teletrax <?php echo $pagetitle[$p_tab] ;?></h4>
     </div>
   </div>
 
@@ -67,6 +60,8 @@ $date_start = date("Y-m-d");
         if ($p_message != "NOPE") { echo "<div class='' style='width:100%; text-align: center;'><span class='  alert-box info radius'>",$p_message,"</span></div>";}
         switch($p_tab) {
             case 1  : ttx_latest(); break;
+            case 2  : ttx_top20_month($p_date); break;
+            case 3  : ttx_top_stories_month($p_date); break;
             case 14  : fact15_teletrax($p_fact_id,$hlp_date) ; break;
             default :
                 ttx_latest() ; break;
@@ -106,7 +101,10 @@ $date_start = date("Y-m-d");
       </div>
 
     </div>
-    <br><br>
+    <br>
+      <div class="row center">
+          <a href="http://access.enex.online" target='_blank' id="download-button" class="btn-large waves-effect waves-light blue.darken-4">ENEX App access</a>
+      </div>
   </div>
 
   <footer class="page-footer enex_blue2">

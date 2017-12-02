@@ -17,14 +17,87 @@ function killsession() {
     session_destroy();
 }
 // *******************************************
+function ttx_top20_month($p_date) {
+    require('../fact15/fact_config.php');
+    $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
+    $CoID->select_db($config['dbname']);
+    $bench_start_date = substr($p_date,0,8)."01" ;
+    $bench_end_date = substr(date('Y-m-d',strtotime("+1 month",strtotime($bench_start_date))),0,8)."01" ;
+    ?>
+    <table class='display striped' style='font-size:85%;'>
+                    <thead>
+                    <tr>
+                        <th>Partner</th><th>Items</th><th>Hits</th>
+                    </tr>
+                    </thead> <tbody>
+                    <?php
+                    $sql = "SELECT tt_partner, COUNT(DISTINCT(tt_asset)) AS storycount,COUNT(tt_asset) AS hitcount FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date."' AND tt_detection_start < '".$bench_end_date."' GROUP BY tt_partner ORDER BY storycount DESC";
+                    // echo $sql;
+                    $query = $CoID->query($sql);
+                    while ( $row = $query->fetch_array()) {
+                        ?>
+                        <tr>
+                            <td><?php echo $row['tt_partner'] ;?></td>
+                            <td><?php echo $row['storycount'] ;?></td>
+                            <td><?php echo $row['hitcount']; ?></td>
+
+                        </tr>
+                        <?php
+                    }
+                    ?>
+    </tbody>
+    </table>
+    <?php
+    $CoID->close();
+}
+//********************************************
+function ttx_top_stories_month($p_date) {
+    require('../fact15/fact_config.php');
+    $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
+    $CoID->select_db($config['dbname']);
+    $bench_start_date = substr($p_date,0,8)."01" ;
+    $bench_end_date = substr(date('Y-m-d',strtotime("+1 month",strtotime($bench_start_date))),0,8)."01" ;
+    ?>
+    <table class='display' id='ttdetails'>
+                    <thead>
+                    <tr>
+                        <th>Partners</th><th>Hits</th><th>Story</th><th>Asset</th><th>Source</th><th>STEP ID</th>
+                    </tr>
+                    </thead> <tbody>
+                    <?php
+                    $sql = "SELECT *,source_title,COUNT(DISTINCT(tt_partner)) AS topstation, COUNT(tt_asset) as storyhits FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date." 00:00:00' AND 
+                            tt_detection_start < '".$bench_end_date." 23:59:59'  AND source_id <> '-1' group by tt_asset ORDER BY topstation DESC ";
+                    //echo $sql;
+                    $query = $CoID->query($sql);
+                    while ( $row = $query->fetch_array()) {
+
+                        ?>
+                        <tr>
+                            <td><?php echo $row['topstation']; ?></td>
+                            <td><?php echo $row['storyhits']; ?></td>
+                            <td><strong><?php echo $row['source_title']; ?></strong></td>
+                            <td><?php echo $row['tt_asset']; ?></td>
+                            <td><?php echo $row['source_partner']; ?></td>
+                            <td><a href='index.php?tb=14&id=<?php echo $row['source_id']; ?>'><?php echo $row['source_id']; ?></a></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+    </tbody>
+    </table>
+    <?php
+    $CoID->close();
+}
+
+//********************************************
 function ttx_latest() {
  // Latest hits unfiltered, created 1.1.2017
     require('../fact15/fact_config.php');
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
-    $sqlpan1 = "SELECT * FROM teletrax_hits ORDER BY tt_detection_start desc limit 100 ";
+    $sqlpan1 = "SELECT * FROM teletrax_hits ORDER BY tt_detection_start desc limit 60 ";
     ?>
-    <table class='display' id='ttdetails' style='font-size:85%;'>
+    <table class='display striped' id='ttdetails' style='font-size:70%;'>
                     <thead>
                     <tr>
                         <th>Hit Time</th><th>Story Date</th><th>Partner</th><th>Program</th><th>Duration</th><th>Asset</th><th>Source</th><th>Story</th><th>STEP ID</th>
