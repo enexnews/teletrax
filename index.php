@@ -21,7 +21,7 @@ $date_start = date("Y-m-d");
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css?v=<?=time();?>" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
 <ul id="dropdown1" class="dropdown-content">
@@ -30,7 +30,7 @@ $date_start = date("Y-m-d");
     <li class="divider"></li>
     <li><a href="#!">three</a></li>
 </ul>
-  <nav class="blue darken-4" role="navigation">
+  <nav class="enex_blue2" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="css/ENEXlogo.png" style="width:220px; height:45px; margin-top:10px;"></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Navbar Link</a></li>
@@ -46,7 +46,7 @@ $date_start = date("Y-m-d");
     </div>
   </nav>
   <div class="section no-pad-bot" id="index-banner">
-    <div class="container light-blue-text">
+    <div class="container enex_blue2text">
       <br><br>
       <h1 class="header center">Teletrax reports will come here</h1>
       <div class="row center">
@@ -109,8 +109,8 @@ $date_start = date("Y-m-d");
     <br><br>
   </div>
 
-  <footer class="page-footer blue darken-4">
-    <div class="container blue darken-4">
+  <footer class="page-footer enex_blue2">
+    <div class="container enex_blue2">
       <div class="row">
         <div class="col l6 s12">
           <h5 class="white-text">Company Bio</h5>
@@ -138,7 +138,7 @@ $date_start = date("Y-m-d");
         </div>
       </div>
     </div>
-    <div class="footer-copyright blue darken-3">
+    <div class="footer-copyright enex_lightblue">
       <div class="container">
       Made by <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
       </div>
