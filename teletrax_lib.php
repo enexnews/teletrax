@@ -24,7 +24,7 @@ function ttx_top20_month($p_date) {
     $bench_start_date = substr($p_date,0,8)."01" ;
     $bench_end_date = substr(date('Y-m-d',strtotime("+1 month",strtotime($bench_start_date))),0,8)."01" ;
     ?>
-    <table class='display striped' style='font-size:85%;'>
+    <table class='display striped' id='topstories_monthtable' style='font-size:85%;'>
                     <thead>
                     <tr>
                         <th>Partner</th><th>Items</th><th>Hits</th>
@@ -58,7 +58,7 @@ function ttx_top_stories_month($p_date) {
     $bench_start_date = substr($p_date,0,8)."01" ;
     $bench_end_date = substr(date('Y-m-d',strtotime("+1 month",strtotime($bench_start_date))),0,8)."01" ;
     ?>
-    <table class='display' id='ttdetails'>
+    <table class='display' id='ttdetails' style='font-size:80%;'>
                     <thead>
                     <tr>
                         <th>Partners</th><th>Hits</th><th>Story</th><th>Asset</th><th>Source</th><th>STEP ID</th>

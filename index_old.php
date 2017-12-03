@@ -30,8 +30,8 @@ $date_start = date("Y-m-d");
 </head>
 <body>
 <ul id="dropdown1" class="dropdown-content">
-    <li><a href="index.php?tb=2&dt=2017-08-01">TOP Partners Month</a></li>
-    <li><a href="index.php?tb=3&dt=2017-08-01">TOP Stories Month </a></li>
+    <li><a href="index.php?tb=2&dt=2017-08-01">TOP Partners </a></li>
+    <li><a href="index.php?tb=3&dt=2017-08-01">TOP Stories </a></li>
     <li class="divider"></li>
     <li><a href="#!">three</a></li>
 </ul>
@@ -40,7 +40,7 @@ $date_start = date("Y-m-d");
       <ul class="right hide-on-med-and-down">
 
         <li><a href="index.php">HOME</a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Reports Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">7-day reports<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
@@ -73,36 +73,67 @@ $date_start = date("Y-m-d");
     <div class="section">
 
       <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+            <h5 class="center">Speeds up development</h5>
 
+            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+            <h5 class="center">User Experience Focused</h5>
+
+            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
+            <h5 class="center">Easy to work with</h5>
+
+            <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+          </div>
+        </div>
+      </div>
 
     </div>
-
+    <br>
+      <div class="row center">
+          <a href="http://access.enex.online" target='_blank' id="download-button" class="btn-large waves-effect waves-light blue.darken-4">ENEX App access</a>
+      </div>
   </div>
 
   <footer class="page-footer enex_blue2">
     <div class="container enex_blue2">
       <div class="row">
         <div class="col l6 s12">
-          <h5 class="white-text">Reports</h5>
-          <p class="grey-text text-lighten-4">This tool is still under construction. The various reports will appear very soon</p>
+          <h5 class="white-text">Company Bio</h5>
+          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
 
 
         </div>
         <div class="col l3 s12">
-          <h5 class="white-text">Partners</h5>
+          <h5 class="white-text">Settings</h5>
           <ul>
-            <li><a class="white-text" href="#!">TOP last 20 days</a></li>
-            <li><a class="white-text" href="#!">TOP month</a></li>
-            <li><a class="white-text" href="#!">TOP Quarter</a></li>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
           </ul>
         </div>
         <div class="col l3 s12">
-          <h5 class="white-text">Stories</h5>
+          <h5 class="white-text">Connect</h5>
           <ul>
-            <li><a class="white-text" href="#!">TOP last 20 days</a></li>
-            <li><a class="white-text" href="#!">TOP month</a></li>
-            <li><a class="white-text" href="#!">TOP quarter</a></li>
-
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
           </ul>
         </div>
       </div>
