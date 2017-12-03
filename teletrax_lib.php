@@ -17,12 +17,19 @@ function killsession() {
     session_destroy();
 }
 // *******************************************
-function ttx_top20_month($p_date) {
+function ttx_top_partners($p_date,$ttx_type) {
     require('../fact15/fact_config.php');
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
-    $bench_start_date = substr($p_date,0,8)."01" ;
-    $bench_end_date = substr(date('Y-m-d',strtotime("+1 month",strtotime($bench_start_date))),0,8)."01" ;
+    if ($ttx_type=='month') {
+        $bench_start_date = substr($p_date, 0, 8) . "01";
+        $bench_end_date = substr(date('Y-m-d', strtotime("+1 month", strtotime($bench_start_date))), 0, 8) . "01";
+    }
+    else {
+        // latest 7 days
+        $bench_start_date = date('Y-m-d',strtotime("-7 days",strtotime($today))) ;
+        $bench_end_date = date('Y-m-d') ;
+    }
     ?>
     <table class='display striped' id='topstories_monthtable' style='font-size:85%;'>
                     <thead>
@@ -51,17 +58,30 @@ function ttx_top20_month($p_date) {
     $CoID->close();
 }
 //********************************************
-function ttx_top_stories_month($p_date) {
+function ttx_top_stories_month($p_date,$ttx_type) {
     require('../fact15/fact_config.php');
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
-    $bench_start_date = substr($p_date,0,8)."01" ;
-    $bench_end_date = substr(date('Y-m-d',strtotime("+1 month",strtotime($bench_start_date))),0,8)."01" ;
+    if ($ttx_type=='month') {
+        $bench_start_date = substr($p_date,0,8)."01" ;
+        $bench_end_date = substr(date('Y-m-d',strtotime("+1 month",strtotime($bench_start_date))),0,8)."01" ;
+    }
+    elseif($ttx_type=='20days') {
+        // latest 20 days
+        $bench_start_date = date('Y-m-d',strtotime("-20 days",strtotime($today))) ;
+        $bench_end_date = date('Y-m-d') ;
+    }
+    else {
+        // latest 7 days
+        $bench_start_date = date('Y-m-d',strtotime("-7 days",strtotime($today))) ;
+        $bench_end_date = date('Y-m-d') ;
+    }
+
     ?>
     <table class='display' id='ttdetails' style='font-size:80%;'>
                     <thead>
                     <tr>
-                        <th>Partners</th><th>Hits</th><th>Story</th><th>Asset</th><th>Source</th><th>STEP ID</th>
+                        <th>Part.</th><th>Hits</th><th>Story</th><th>Date</th><th>Asset</th><th>Source</th><th>STEP ID</th>
                     </tr>
                     </thead> <tbody>
                     <?php
@@ -76,6 +96,7 @@ function ttx_top_stories_month($p_date) {
                             <td><?php echo $row['topstation']; ?></td>
                             <td><?php echo $row['storyhits']; ?></td>
                             <td><strong><?php echo $row['source_title']; ?></strong></td>
+                            <td><?php echo $row['source_date']; ?></td>
                             <td><?php echo $row['tt_asset']; ?></td>
                             <td><?php echo $row['source_partner']; ?></td>
                             <td><a href='index.php?tb=14&id=<?php echo $row['source_id']; ?>'><?php echo $row['source_id']; ?></a></td>

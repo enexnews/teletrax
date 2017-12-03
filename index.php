@@ -10,8 +10,11 @@ if (!isset($_GET['tb'])) {  $p_tab = 1 ;} else  {
 
 } // check tab setting
 $pagetitle[1] = 'Latest Hits' ;
-$pagetitle[2] = 'TOP 20 Partners '. date("F-Y",strtotime($p_date)) ;
-$pagetitle[3] = 'TOP 20 Stories '. date("F-Y",strtotime($p_date)) ;
+$pagetitle[2] = 'TOP Partners '. date("F-Y",strtotime($p_date)) ;
+$pagetitle[3] = 'TOP Stories '. date("F-Y",strtotime($p_date)) ;
+$pagetitle[4] = 'TOP Stories latest 20 days ( since '. date('l, d F Y',strtotime("-20 days",strtotime($today))).")" ;
+$pagetitle[5] = 'TOP Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
+$pagetitle[6] = 'TOP Partners latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
 $date_start = date("Y-m-d");
 ?>
 <!DOCTYPE html>
@@ -32,6 +35,9 @@ $date_start = date("Y-m-d");
 <ul id="dropdown1" class="dropdown-content">
     <li><a href="index.php?tb=2&dt=2017-08-01">TOP Partners Month</a></li>
     <li><a href="index.php?tb=3&dt=2017-08-01">TOP Stories Month </a></li>
+    <li><a href="index.php?tb=4">TOP Stories last 20 days </a></li>
+    <li><a href="index.php?tb=5">TOP Stories last 7 days </a></li>
+    <li><a href="index.php?tb=6">TOP Partners last 7 days </a></li>
     <li class="divider"></li>
     <li><a href="#!">three</a></li>
 </ul>
@@ -62,8 +68,11 @@ $date_start = date("Y-m-d");
         if ($p_message != "NOPE") { echo "<div class='' style='width:100%; text-align: center;'><span class='  alert-box info radius'>",$p_message,"</span></div>";}
         switch($p_tab) {
             case 1  : ttx_latest(); break;
-            case 2  : ttx_top20_month($p_date); break;
-            case 3  : ttx_top_stories_month($p_date); break;
+            case 2  : ttx_top_partners($p_date,'month'); break;
+            case 3  : ttx_top_stories_month($p_date,'month'); break;
+            case 4  : ttx_top_stories_month($p_date,'20days'); break;
+            case 5  : ttx_top_stories_month($p_date,'week'); break;
+            case 6  : ttx_top_partners($p_date,'week'); break;
             case 14  : fact15_teletrax($p_fact_id,$hlp_date) ; break;
             default :
                 ttx_latest() ; break;
