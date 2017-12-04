@@ -31,7 +31,7 @@ function ttx_top_partners($p_date,$ttx_type) {
         $bench_end_date = date('Y-m-d') ;
     }
     ?>
-    <table class='display stripe' id='topstories_monthtable' style='font-size:85%;'>
+    <table class='display striped' id='topstories_monthtable' style='font-size:85%;'>
                     <thead>
                     <tr>
                         <th>Partner</th><th>Items</th><th>Hits</th>
@@ -58,7 +58,53 @@ function ttx_top_partners($p_date,$ttx_type) {
     $CoID->close();
 }
 //********************************************
-function ttx_top_stories_month($p_date,$ttx_type) {
+function ttx_item_hits($ttx_id, $bench_start_date,$bench_end_date) {
+    require('../fact15/fact_config.php');
+    $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
+    $CoID->select_db($config['dbname']);
+    //$sqlpan1 = "SELECT * FROM teletrax_hits ORDER BY tt_detection_start desc limit 60 ";
+    $sqlpan1 = "SELECT * FROM teletrax_hits WHERE source_id = $ttx_id and (tt_detection_start >= '" . $bench_start_date . " 00:00:00' AND tt_detection_start < '" . $bench_end_date . " 23:59:59' ) ORDER BY tt_detection_start asc ";
+    ?>
+    <table class='display striped' id='ttdetails' style='font-size:70%;'>
+        <thead>
+        <tr>
+            <th>Hit Time</th><th>Story Date</th><th>Partner</th><th>Program</th><th>Duration</th><th>Asset</th><th>Source</th><th>Story</th><th>STEP ID</th>
+        </tr>
+        </thead> <tbody>
+        <?php
+        //echo $sqlpan1 ;
+        $query = $CoID->query($sqlpan1);
+        while ( $row = $query->fetch_array()) {
+            if ($row['source_id']!= '-1') {
+                $sqlsub = "select * from pex_story where story_step_id = '".$row['source_id']."'";
+                $subquery = $CoID->query($sqlsub) ;
+                if ($subrow =$subquery->fetch_array()) {$mstorydate = $subrow['storydate'];} else { $mstorydate = 'NO META REF!'; }
+            }
+            else { $mstorydate = 'NO META REF';}
+
+            ?>
+            <tr>
+                <td><?php echo $row['tt_detection_start'] ;?></td>
+                <td><?php echo $mstorydate; ?></td>
+                <td><?php echo $row['tt_partner'] ;?></td>
+                <td><?php echo $row['tt_program']; ?></td>
+                <td><?php echo substr($row['tt_duration'],3); ?></td>
+                <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
+                <td><?php echo $row['source_partner']; ?></td>
+                <td><strong><?php echo $row['source_title']; ?></strong></td>
+                <td><?php echo $row['source_id']; ?></td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+    <?php
+
+    $CoID->close();
+}
+//********************************************
+function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
     require('../fact15/fact_config.php');
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
@@ -76,17 +122,21 @@ function ttx_top_stories_month($p_date,$ttx_type) {
         $bench_start_date = date('Y-m-d',strtotime("-7 days",strtotime($today))) ;
         $bench_end_date = date('Y-m-d') ;
     }
+    $ttx_condition = "";
+    if ($ttx_filter == "PARTNERS") {$ttx_condition = " and source_partner <> 'Sourced by ENEX' and source_partner <> 'POOL' "; }
+    if ($ttx_filter == "3RDPARTY") {$ttx_condition = " and (source_partner = 'Sourced by ENEX' or source_partner = 'POOL') "; }
 
     ?>
-    <table class='display' id='ttdetails' style='font-size:80%;'>
+    <table class='display striped' id='ttdetails' style='font-size:80%;'>
                     <thead>
                     <tr>
                         <th>Part.</th><th>Hits</th><th>Story</th><th>Date</th><th>Asset</th><th>Source</th><th>STEP ID</th>
                     </tr>
                     </thead> <tbody>
                     <?php
+
                     $sql = "SELECT *,source_title,COUNT(DISTINCT(tt_partner)) AS topstation, COUNT(tt_asset) as storyhits FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date." 00:00:00' AND 
-                            tt_detection_start < '".$bench_end_date." 23:59:59'  AND source_id <> '-1' group by tt_asset ORDER BY topstation DESC ";
+                            tt_detection_start < '".$bench_end_date." 23:59:59'  AND source_id <> '-1' ".$ttx_condition." group by tt_asset ORDER BY topstation DESC limit ".$ttx_limit;
                     //echo $sql;
                     $query = $CoID->query($sql);
                     while ( $row = $query->fetch_array()) {
@@ -97,9 +147,9 @@ function ttx_top_stories_month($p_date,$ttx_type) {
                             <td><?php echo $row['storyhits']; ?></td>
                             <td><strong><?php echo $row['source_title']; ?></strong></td>
                             <td><?php echo $row['source_date']; ?></td>
-                            <td><a title="<?php echo $row['tt_asset']; ?>"><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
+                            <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
                             <td><?php echo $row['source_partner']; ?></td>
-                            <td><a href='index.php?tb=14&id=<?php echo $row['source_id']; ?>'><?php echo $row['source_id']; ?></a></td>
+                            <td><a href='index.php?tb=14&id=<?php echo $row['source_id']; ?>&dts=<?php echo $bench_start_date; ?>&dte=<?php echo $bench_end_date; ?>'><?php echo $row['source_id']; ?></a></td>
                         </tr>
                         <?php
                     }
@@ -142,7 +192,7 @@ function ttx_latest() {
                             <td><?php echo $row['tt_partner'] ;?></td>
                             <td><?php echo $row['tt_program']; ?></td>
                             <td><?php echo substr($row['tt_duration'],3); ?></td>
-                            <td><a title="<?php echo $row['tt_asset']; ?>"><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
+                            <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
                             <td><?php echo $row['source_partner']; ?></td>
                             <td><strong><?php echo $row['source_title']; ?></strong></td>
                             <td><?php echo $row['source_id']; ?></td>
@@ -207,7 +257,7 @@ function fact15_teletrax($fact_id, $p_date) {
         </ul>
         <div class="tabs-content" >
             <div class="content active" id="panel1">
-                <table class='display' id='ttdetails'>
+                <table class='display striped' id='ttdetails'>
                     <thead>
                     <tr>
                         <th>Hit Time</th><th>Story Date</th><th>Partner</th><th>Program</th><th>Duration</th><th>Asset</th><th>Source</th><th>Story</th><th>STEP ID</th>

@@ -5,6 +5,8 @@ if (!isset($_GET['p'])) {$p_message = "NOPE";} else  {$p_message = $_GET['p'] ; 
 if (!isset($_GET['id'])) {$p_fact_id =0; } else  {$p_fact_id = $_GET['id']; } // check id parameter
 if (!isset($_GET['fc']))  {$p_funct = 'NOPE' ; }  else  {$p_funct = $_GET['fc']; } // check function setting (edit,create ...)
 if (!isset($_GET['dt'])or ($_GET['dt']=='ALL')) {$p_date = 'ALL'; $hlp_date=$today;} else  {$p_date = $_GET['dt']; $hlp_date=$p_date; } // check date parameter
+if (!isset($_GET['dts'])) {$p_date_start = $today; } else  {$p_date_start = $_GET['dts'] ;} // check date parameter
+if (!isset($_GET['dte'])) {$p_date_end = $today; } else  {$p_date_end = $_GET['dte']; } // check date parameter
 if (!isset($_GET['tb'])) {  $p_tab = 1 ;} else  {
     $p_tab = $_GET['tb'];
 
@@ -15,8 +17,13 @@ $pagetitle[3] = 'TOP Stories '. date("F-Y",strtotime($p_date)) ;
 $pagetitle[4] = 'TOP Stories latest 20 days ( since '. date('l, d F Y',strtotime("-20 days",strtotime($today))).")" ;
 $pagetitle[5] = 'TOP Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
 $pagetitle[6] = 'TOP Partners latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
+$pagetitle[7] = 'TOP Partner Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
+$pagetitle[8] = 'TOP 3rd Party Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
+$pagetitle[14] = 'Story '.$p_fact_id.' hits (Date range: '.$p_date_start.' ==> '.$p_date_end.' ) ' ;
 $date_start = date("Y-m-d");
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,20 +40,26 @@ $date_start = date("Y-m-d");
 </head>
 <body>
 <ul id="dropdown1" class="dropdown-content">
-    <li><a href="index.php?tb=2&dt=2017-08-01">TOP Partners Month</a></li>
-    <li><a href="index.php?tb=3&dt=2017-08-01">TOP Stories Month </a></li>
-    <li><a href="index.php?tb=4">TOP Stories last 20 days </a></li>
-    <li><a href="index.php?tb=5">TOP Stories last 7 days </a></li>
-    <li><a href="index.php?tb=6">TOP Partners last 7 days </a></li>
+    <li><a href="index.php?tb=2&dt=2017-11-01">Month</a></li>
     <li class="divider"></li>
-    <li><a href="#!">three</a></li>
+    <li><a href="index.php?tb=6">Last 7 days</a></li>
+</ul>
+<ul id="dropdown2" class="dropdown-content">
+    <li><a href="index.php?tb=3&dt=2017-08-01">Last Month All</a></li>
+    <li><a href="index.php?tb=4">Last 20 days All</a></li>
+    <li><a href="index.php?tb=5">Last week All</a></li>
+    <li class="divider"></li>
+    <li><a href="index.php?tb=7">Last week Partners</a></li>
+    <li><a href="index.php?tb=8">Last week 3rd Party</a></li>
+
 </ul>
   <nav class="enex_blue2" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="css/ENEXlogo.png" style="width:220px; height:45px; margin-top:10px;"></a>
       <ul class="right hide-on-med-and-down">
 
-        <li><a href="index.php">HOME</a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Reports Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a href="index.php">Latest Hits</a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Top Partners Usage<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Top Stories Hit<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
@@ -55,13 +68,14 @@ $date_start = date("Y-m-d");
           <li><a href="index.php?tb=4">TOP Stories last 20 days </a></li>
           <li><a href="index.php?tb=5">TOP Stories last 7 days </a></li>
           <li><a href="index.php?tb=6">TOP Partners last 7 days </a></li>
+          <li><a href="index.php?tb=7">TOP Partner Stories last 7 days </a></li>
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
   <div class="section no-pad-bot" id="index-banner">
     <div class="container enex_blue2text">
-      <h4 class="center">Teletrax <?php echo $pagetitle[$p_tab] ;?></h4>
+      <h5 class="center">Teletrax <?php echo $pagetitle[$p_tab] ;?></h5>
     </div>
   </div>
 
@@ -73,11 +87,13 @@ $date_start = date("Y-m-d");
         switch($p_tab) {
             case 1  : ttx_latest(); break;
             case 2  : ttx_top_partners($p_date,'month'); break;
-            case 3  : ttx_top_stories_month($p_date,'month'); break;
-            case 4  : ttx_top_stories_month($p_date,'20days'); break;
-            case 5  : ttx_top_stories_month($p_date,'week'); break;
+            case 3  : ttx_top_stories_month($p_date,'month','',100); break;
+            case 4  : ttx_top_stories_month($p_date,'20days','',50); break;
+            case 5  : ttx_top_stories_month($p_date,'week','',50); break;
             case 6  : ttx_top_partners($p_date,'week'); break;
-            case 14  : fact15_teletrax($p_fact_id,$hlp_date) ; break;
+            case 7  : ttx_top_stories_month($p_date,'week','PARTNERS',20); break;
+            case 8  : ttx_top_stories_month($p_date,'week','3RDPARTY',20); break;
+            case 14  : ttx_item_hits($p_fact_id,$p_date_start,$p_date_end) ; break;
             default :
                 ttx_latest() ; break;
         }
