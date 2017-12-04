@@ -120,17 +120,18 @@ $date_start = date("Y-m-d");
         <div class="col l3 s12">
           <h5 class="white-text">Partners</h5>
           <ul>
-            <li><a class="white-text" href="#!">TOP last 20 days</a></li>
-            <li><a class="white-text" href="#!">TOP month</a></li>
-            <li><a class="white-text" href="#!">TOP Quarter</a></li>
+              <li><a class="white-text" href="index.php?tb=2&dt=2017-11-01">Month</a></li>
+              <li><a class="white-text" href="index.php?tb=6">Last 7 days</a></li>
           </ul>
         </div>
         <div class="col l3 s12">
           <h5 class="white-text">Stories</h5>
           <ul>
-            <li><a class="white-text" href="#!">TOP last 20 days</a></li>
-            <li><a class="white-text" href="#!">TOP month</a></li>
-            <li><a class="white-text" href="#!">TOP quarter</a></li>
+              <li><a class="white-text" href="index.php?tb=3&dt=2017-08-01">Last Month All</a></li>
+              <li><a class="white-text" href="index.php?tb=4">Last 20 days All</a></li>
+              <li><a class="white-text" href="index.php?tb=5">Last week All</a></li>
+              <li><a class="white-text" href="index.php?tb=7">Last week Partners</a></li>
+              <li><a class="white-text" href="index.php?tb=8">Last week 3rd Party</a></li>
 
           </ul>
         </div>
@@ -138,7 +139,7 @@ $date_start = date("Y-m-d");
     </div>
     <div class="footer-copyright enex_lightblue">
       <div class="container">
-      Made by <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
+      V.0.3 / 4.12.2017 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
       </div>
     </div>
   </footer>
