@@ -47,7 +47,7 @@ $date_start = date("Y-m-d");
     <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
 </ul>
 <ul id="dropdown2" class="dropdown-content">
-    <li><a href="index.php?tb=3&dt=2017-08-01">Last Month All</a></li>
+    <li><a href="index.php?tb=3&dt=2017-11-01">Last Month All</a></li>
     <li><a href="index.php?tb=4">Last 20 days All</a></li>
     <li><a href="index.php?tb=5">Last week All</a></li>
     <li class="divider"></li>
@@ -65,13 +65,16 @@ $date_start = date("Y-m-d");
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-          <li><a href="index.php?tb=2&dt=2017-08-01">TOP Partners Month</a></li>
-          <li><a href="index.php?tb=3&dt=2017-08-01">TOP Stories Month </a></li>
-          <li><a href="index.php?tb=4">TOP Stories last 20 days </a></li>
-          <li><a href="index.php?tb=5">TOP Stories last 7 days </a></li>
-          <li><a href="index.php?tb=6">TOP Partners last 7 days </a></li>
-          <li><a href="index.php?tb=7">TOP Partner Stories last 7 days </a></li>
-      </ul>
+          <li><a href="index.php?tb=2&dt=2017-11-01">Month</a></li>
+          <li><a href="index.php?tb=6">Last 7 days</a></li>
+          <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
+          <li class="divider"></li>
+          <li><a href="index.php?tb=3&dt=2017-11-01">Last Month All</a></li>
+          <li><a href="index.php?tb=4">Last 20 days All</a></li>
+          <li><a href="index.php?tb=5">Last week All</a></li>
+          <li><a href="index.php?tb=7">Last week Partners</a></li>
+          <li><a href="index.php?tb=8">Last week 3rd Party</a></li>
+        </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
@@ -125,6 +128,7 @@ $date_start = date("Y-m-d");
           <ul>
               <li><a class="white-text" href="index.php?tb=2&dt=2017-11-01">Month</a></li>
               <li><a class="white-text" href="index.php?tb=6">Last 7 days</a></li>
+              <li><a class="white-text" href="index.php?tb=9">Last 7 days Chart</a></li>
           </ul>
         </div>
         <div class="col l3 s12">
