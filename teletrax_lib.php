@@ -31,7 +31,7 @@ function ttx_top_partners($p_date,$ttx_type) {
         $bench_end_date = date('Y-m-d') ;
     }
     ?>
-    <table class='display striped' id='topstories_monthtable' style='font-size:85%;'>
+    <table class='display stripe' id='topstories_monthtable' style='font-size:85%;'>
                     <thead>
                     <tr>
                         <th>Partner</th><th>Items</th><th>Hits</th>
@@ -97,7 +97,7 @@ function ttx_top_stories_month($p_date,$ttx_type) {
                             <td><?php echo $row['storyhits']; ?></td>
                             <td><strong><?php echo $row['source_title']; ?></strong></td>
                             <td><?php echo $row['source_date']; ?></td>
-                            <td><?php echo $row['tt_asset']; ?></td>
+                            <td><a title="<?php echo $row['tt_asset']; ?>"><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
                             <td><?php echo $row['source_partner']; ?></td>
                             <td><a href='index.php?tb=14&id=<?php echo $row['source_id']; ?>'><?php echo $row['source_id']; ?></a></td>
                         </tr>
@@ -142,9 +142,9 @@ function ttx_latest() {
                             <td><?php echo $row['tt_partner'] ;?></td>
                             <td><?php echo $row['tt_program']; ?></td>
                             <td><?php echo substr($row['tt_duration'],3); ?></td>
-                            <td><?php echo $row['tt_asset']; ?></td>
+                            <td><a title="<?php echo $row['tt_asset']; ?>"><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
                             <td><?php echo $row['source_partner']; ?></td>
-                            <td><?php echo $row['source_title']; ?></td>
+                            <td><strong><?php echo $row['source_title']; ?></strong></td>
                             <td><?php echo $row['source_id']; ?></td>
                         </tr>
                         <?php

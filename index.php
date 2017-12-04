@@ -28,7 +28,7 @@ $date_start = date("Y-m-d");
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css?v=<?=time();?>" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.16/datatables.min.css?v=<?=time();?>"/>
 
 </head>
 <body>
@@ -135,7 +135,8 @@ $date_start = date("Y-m-d");
         crossorigin="anonymous"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.16/datatables.min.js"></script>
+   <script type="text/javascript" language="javascript" src="//cdn.datatables.net/responsive/1.0.0/js/dataTables.responsive.min.js"></script>
 <script>
     $('#topstories_monthtable').dataTable({
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
