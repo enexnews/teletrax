@@ -17,6 +17,7 @@ $pagetitle[3] = 'TOP Stories '. date("F-Y",strtotime($p_date)) ;
 $pagetitle[4] = 'TOP Stories latest 20 days ( since '. date('l, d F Y',strtotime("-20 days",strtotime($today))).")" ;
 $pagetitle[5] = 'TOP Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
 $pagetitle[6] = 'TOP Partners latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
+$pagetitle[9] = 'TOP Partners latest week chart( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
 $pagetitle[7] = 'TOP Partner Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
 $pagetitle[8] = 'TOP 3rd Party Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
 $pagetitle[14] = 'Story '.$p_fact_id.' hits (Date range: '.$p_date_start.' ==> '.$p_date_end.' ) ' ;
@@ -43,6 +44,7 @@ $date_start = date("Y-m-d");
     <li><a href="index.php?tb=2&dt=2017-11-01">Month</a></li>
     <li class="divider"></li>
     <li><a href="index.php?tb=6">Last 7 days</a></li>
+    <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
 </ul>
 <ul id="dropdown2" class="dropdown-content">
     <li><a href="index.php?tb=3&dt=2017-08-01">Last Month All</a></li>
@@ -93,6 +95,7 @@ $date_start = date("Y-m-d");
             case 6  : ttx_top_partners($p_date,'week'); break;
             case 7  : ttx_top_stories_month($p_date,'week','PARTNERS',20); break;
             case 8  : ttx_top_stories_month($p_date,'week','3RDPARTY',20); break;
+            case 9  : ttx_chart(); break ;
             case 14  : ttx_item_hits($p_fact_id,$p_date_start,$p_date_end) ; break;
             default :
                 ttx_latest() ; break;
@@ -155,7 +158,66 @@ $date_start = date("Y-m-d");
   <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.16/datatables.min.js"></script>
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/1.0.0/js/dataTables.responsive.min.js"></script>
   <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
 
+            <?php
+            require('../fact15/fact_config.php');
+            $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
+            $CoID->select_db($config['dbname']);
+            $bench_start_date = date('Y-m-d',strtotime("-7 days",strtotime($today))) ;
+            $bench_end_date = date('Y-m-d') ;
+            $sql = "SELECT tt_partner, COUNT(DISTINCT(tt_asset)) AS storycount,COUNT(tt_asset) AS hitcount FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date."' AND tt_detection_start < '".$bench_end_date."' 
+            GROUP BY tt_partner ORDER BY storycount DESC limit 6";
+            // echo $sql;
+            $query = $CoID->query($sql);
+            $glabels = "";
+            $growvalues = "";
+            while ( $row = $query->fetch_array()) {
+                $glabels.= '"'.$row['tt_partner'].'",';
+                $growvalues.= ''.$row['storycount'].',';
+            }
+            $CoID->close();
+            ?>
+            labels: [<?php echo $glabels;?> ],
+            //["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [{
+                label: 'Top Partners Usage Last Week',
+                //data: [12, 19, 3, 5, 2, 3],
+                data: [<?php echo $growvalues ;?>],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+</script>
 <script>
     $('#topstories_monthtable').dataTable({
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],

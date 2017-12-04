@@ -16,6 +16,12 @@ function killsession() {
     }
     session_destroy();
 }
+//********************************************
+function ttx_chart() {
+    ?>
+    <canvas id="myChart" width="300" height="300"></canvas>
+    <?php
+}
 // *******************************************
 function ttx_top_partners($p_date,$ttx_type) {
     require('../fact15/fact_config.php');
