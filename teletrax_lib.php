@@ -49,7 +49,7 @@ function ttx_top_partners($p_date,$ttx_type) {
                     </thead> <tbody>
                     <?php
                     $sql = "SELECT tt_partner, COUNT(DISTINCT(tt_asset)) AS storycount,COUNT(tt_asset) AS hitcount FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date."' AND tt_detection_start < '".$bench_end_date."' GROUP BY tt_partner ORDER BY storycount DESC";
-                    echo $sql;
+
                     $query = $CoID->query($sql);
                     while ( $row = $query->fetch_array()) {
                         ?>
@@ -61,6 +61,7 @@ function ttx_top_partners($p_date,$ttx_type) {
                         </tr>
                         <?php
                     }
+                    echo "<pre style='color:#999;'>",$sql,"</pre>";
                     ?>
     </tbody>
     </table>
@@ -151,7 +152,7 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
 
                     $sql = "SELECT *,source_title,COUNT(DISTINCT(tt_partner)) AS topstation, COUNT(tt_asset) as storyhits, items.storyrecnr FROM teletrax_hits,pex_story items WHERE tt_detection_start >= '".$bench_start_date." 00:00:00' AND 
                             tt_detection_start < '".$bench_end_date." 23:59:59'  AND source_id <> '-1' ".$ttx_condition." and source_id = items.story_step_id group by tt_asset ORDER BY topstation DESC limit ".$ttx_limit;
-                    echo $sql;
+
                     $query = $CoID->query($sql);
                     while ( $row = $query->fetch_array()) {
 
@@ -167,6 +168,7 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
                         </tr>
                         <?php
                     }
+                    echo "<pre style='color:#999;'>",$sql,"</pre>";
                     ?>
     </tbody>
     </table>
