@@ -21,6 +21,9 @@ $pagetitle[9] = 'TOP Partners latest week chart( since '. date('l, d F Y',strtot
 $pagetitle[7] = 'TOP Partner Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
 $pagetitle[8] = 'TOP 3rd Party Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
 $pagetitle[11] = 'TOP Stories YEAR '. date("Y",strtotime($p_date)) ;
+$pagetitle[12] = 'TOP Stories YEAR Partners '. date("Y",strtotime($p_date)) ;
+$pagetitle[13] = 'TOP Stories YEAR Sourced '. date("Y",strtotime($p_date)) ;
+$pagetitle[15] = 'TOP Partners YEAR '. date("Y",strtotime($p_date)) ;
 $pagetitle[14] = 'Story '.$p_fact_id.' hits (Date range: '.$p_date_start.' ==> '.$p_date_end.' ) ' ;
 $date_start = date("Y-m-d");
 ?>
@@ -42,7 +45,8 @@ $date_start = date("Y-m-d");
 </head>
 <body>
 <ul id="dropdown1" class="dropdown-content">
-    <li><a href="index.php?tb=2&dt=2017-12-01">Month</a></li>
+    <li><a href="index.php?tb=2&dt=2017-12-01">MONTH</a></li>
+    <li><a href="index.php?tb=15&dt=2017-11-01">YEAR</a></li>
     <li class="divider"></li>
     <li><a href="index.php?tb=6">Last 7 days</a></li>
     <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
@@ -72,6 +76,7 @@ $date_start = date("Y-m-d");
       <ul id="nav-mobile" class="side-nav">
 
           <li><a href="index.php?tb=2&dt=2017-11-01">Month</a></li>
+          <li><a href="index.php?tb=2&dt=2017-11-01">Year</a></li>
           <li><a href="index.php?tb=6">Last 7 days</a></li>
           <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
           <li class="divider"></li>
@@ -110,6 +115,7 @@ $date_start = date("Y-m-d");
             case 12  : ttx_top_stories_month($p_date,'year','PARTNERS',50); break;
             case 13  : ttx_top_stories_month($p_date,'year','3RDPARTY',50); break;
             case 14  : ttx_item_hits($p_fact_id,$p_date_start,$p_date_end) ; break;
+            case 15  : ttx_top_partners($p_date,'year'); break;
             default :
                 ttx_latest() ; break;
         }
@@ -137,6 +143,7 @@ $date_start = date("Y-m-d");
           <h5 class="white-text">Partners</h5>
           <ul>
               <li><a class="white-text" href="index.php?tb=2&dt=2017-12-01">Month</a></li>
+              <li><a class="white-text" href="index.php?tb=15&dt=2017-11-01">Year</a></li>
               <li><a class="white-text" href="index.php?tb=6">Last 7 days</a></li>
               <li><a class="white-text" href="index.php?tb=9">Last 7 days Chart</a></li>
           </ul>

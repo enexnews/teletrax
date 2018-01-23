@@ -31,6 +31,10 @@ function ttx_top_partners($p_date,$ttx_type) {
         $bench_start_date = substr($p_date, 0, 8) . "01";
         $bench_end_date = substr(date('Y-m-d', strtotime("+1 month", strtotime($bench_start_date))), 0, 8) . "01";
     }
+    elseif($ttx_type=='year') {
+        $bench_start_date = substr($p_date,0,5)."01-01" ;
+        $bench_end_date = substr(date('Y-m-d',strtotime("+1 year",strtotime($bench_start_date))),0,8)."01" ;
+    }
     else {
         // latest 7 days
         $bench_start_date = date('Y-m-d',strtotime("-7 days",strtotime($today))) ;
@@ -45,7 +49,7 @@ function ttx_top_partners($p_date,$ttx_type) {
                     </thead> <tbody>
                     <?php
                     $sql = "SELECT tt_partner, COUNT(DISTINCT(tt_asset)) AS storycount,COUNT(tt_asset) AS hitcount FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date."' AND tt_detection_start < '".$bench_end_date."' GROUP BY tt_partner ORDER BY storycount DESC";
-                    // echo $sql;
+                    echo $sql;
                     $query = $CoID->query($sql);
                     while ( $row = $query->fetch_array()) {
                         ?>
@@ -124,8 +128,8 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
         $bench_end_date = date('Y-m-d') ;
     }
     elseif($ttx_type=='year') {
-        $bench_start_date = substr($p_date,0,8)."01" ;
-        $bench_end_date = substr(date('Y-m-d',strtotime("+1 year",strtotime($bench_start_date))),0,8)."01" ;
+        $bench_start_date = substr($p_date,0,5)."01-01" ;
+        $bench_end_date = substr(date('Y-m-d',strtotime("+1 year - 1 day",strtotime($bench_start_date))),0,8)."31" ;
     }
     else {
         // latest 7 days
@@ -145,9 +149,9 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
                     </thead> <tbody>
                     <?php
 
-                    $sql = "SELECT *,source_title,COUNT(DISTINCT(tt_partner)) AS topstation, COUNT(tt_asset) as storyhits FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date." 00:00:00' AND 
-                            tt_detection_start < '".$bench_end_date." 23:59:59'  AND source_id <> '-1' ".$ttx_condition." group by tt_asset ORDER BY topstation DESC limit ".$ttx_limit;
-                    //echo $sql;
+                    $sql = "SELECT *,source_title,COUNT(DISTINCT(tt_partner)) AS topstation, COUNT(tt_asset) as storyhits, items.storyrecnr FROM teletrax_hits,pex_story items WHERE tt_detection_start >= '".$bench_start_date." 00:00:00' AND 
+                            tt_detection_start < '".$bench_end_date." 23:59:59'  AND source_id <> '-1' ".$ttx_condition." and source_id = items.story_step_id group by tt_asset ORDER BY topstation DESC limit ".$ttx_limit;
+                    echo $sql;
                     $query = $CoID->query($sql);
                     while ( $row = $query->fetch_array()) {
 
@@ -155,7 +159,7 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
                         <tr>
                             <td><?php echo $row['topstation']; ?></td>
                             <td><?php echo $row['storyhits']; ?></td>
-                            <td><strong><?php echo $row['source_title']; ?></strong></td>
+                            <td><strong><a href='https://enex.lu/members/dopedetail/<?php echo $row['storyrecnr']; ?>' target='_blank'><?php echo $row['source_title']; ?></strong></a></strong></td>
                             <td><?php echo $row['source_date']; ?></td>
                             <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
                             <td><?php echo $row['source_partner']; ?></td>
@@ -178,7 +182,7 @@ function ttx_latest() {
     $CoID->select_db($config['dbname']);
     $sqlpan1 = "SELECT * FROM teletrax_hits ORDER BY tt_detection_start desc limit 60 ";
     ?>
-    <table class='display striped' id='ttdetails' style='font-size:70%;'>
+    <table class='display striped' id='ttdetails' style='font-size:80%;'>
                     <thead>
                     <tr>
                         <th>Hit Time</th><th>Story Date</th><th>Partner</th><th>Program</th><th>Duration</th><th>Asset</th><th>Source</th><th>Story</th><th>STEP ID</th>
