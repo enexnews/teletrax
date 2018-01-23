@@ -123,6 +123,10 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
         $bench_start_date = date('Y-m-d',strtotime("-20 days",strtotime($today))) ;
         $bench_end_date = date('Y-m-d') ;
     }
+    elseif($ttx_type=='year') {
+        $bench_start_date = substr($p_date,0,8)."01" ;
+        $bench_end_date = substr(date('Y-m-d',strtotime("+1 year",strtotime($bench_start_date))),0,8)."01" ;
+    }
     else {
         // latest 7 days
         $bench_start_date = date('Y-m-d',strtotime("-7 days",strtotime($today))) ;

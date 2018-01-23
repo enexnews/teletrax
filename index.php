@@ -41,13 +41,14 @@ $date_start = date("Y-m-d");
 </head>
 <body>
 <ul id="dropdown1" class="dropdown-content">
-    <li><a href="index.php?tb=2&dt=2017-11-01">Month</a></li>
+    <li><a href="index.php?tb=2&dt=2017-12-01">Month</a></li>
     <li class="divider"></li>
     <li><a href="index.php?tb=6">Last 7 days</a></li>
     <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
 </ul>
 <ul id="dropdown2" class="dropdown-content">
-    <li><a href="index.php?tb=3&dt=2017-11-01">Last Month All</a></li>
+    <li><a href="index.php?tb=11&dt=2017-01-01">Year</a></li>
+    <li><a href="index.php?tb=3&dt=2017-12-01">Last Month All</a></li>
     <li><a href="index.php?tb=4">Last 20 days All</a></li>
     <li><a href="index.php?tb=5">Last week All</a></li>
     <li class="divider"></li>
@@ -65,10 +66,12 @@ $date_start = date("Y-m-d");
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
+
           <li><a href="index.php?tb=2&dt=2017-11-01">Month</a></li>
           <li><a href="index.php?tb=6">Last 7 days</a></li>
           <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
           <li class="divider"></li>
+          <li><a href="index.php?tb=11&dt=2017-01-01">Year</a></li>
           <li><a href="index.php?tb=3&dt=2017-11-01">Last Month All</a></li>
           <li><a href="index.php?tb=4">Last 20 days All</a></li>
           <li><a href="index.php?tb=5">Last week All</a></li>
@@ -99,6 +102,7 @@ $date_start = date("Y-m-d");
             case 7  : ttx_top_stories_month($p_date,'week','PARTNERS',20); break;
             case 8  : ttx_top_stories_month($p_date,'week','3RDPARTY',20); break;
             case 9  : ttx_chart(); break ;
+            case 11  : ttx_top_stories_month($p_date,'year','',100); break;
             case 14  : ttx_item_hits($p_fact_id,$p_date_start,$p_date_end) ; break;
             default :
                 ttx_latest() ; break;
@@ -126,7 +130,7 @@ $date_start = date("Y-m-d");
         <div class="col l3 s12">
           <h5 class="white-text">Partners</h5>
           <ul>
-              <li><a class="white-text" href="index.php?tb=2&dt=2017-11-01">Month</a></li>
+              <li><a class="white-text" href="index.php?tb=2&dt=2017-12-01">Month</a></li>
               <li><a class="white-text" href="index.php?tb=6">Last 7 days</a></li>
               <li><a class="white-text" href="index.php?tb=9">Last 7 days Chart</a></li>
           </ul>
@@ -134,11 +138,12 @@ $date_start = date("Y-m-d");
         <div class="col l3 s12">
           <h5 class="white-text">Stories</h5>
           <ul>
-              <li><a class="white-text" href="index.php?tb=3&dt=2017-08-01">Last Month All</a></li>
+              <li><a class="white-text" href="index.php?tb=11&dt=2017-01-01">Year</a></li>
+              <li><a class="white-text" href="index.php?tb=3&dt=2017-12-01">Last Month All</a></li>
               <li><a class="white-text" href="index.php?tb=4">Last 20 days All</a></li>
               <li><a class="white-text" href="index.php?tb=5">Last week All</a></li>
               <li><a class="white-text" href="index.php?tb=7">Last week Partners</a></li>
-              <li><a class="white-text" href="index.php?tb=8">Last week 3rd Party</a></li>
+              <li><a class="white-text" href="index.php?tb=8">Last week 3rd Party2</a></li>
 
           </ul>
         </div>
@@ -146,7 +151,7 @@ $date_start = date("Y-m-d");
     </div>
     <div class="footer-copyright enex_lightblue">
       <div class="container">
-      V.0.3 / 4.12.2017 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
+      V.0.4 / 23.01.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
       </div>
     </div>
   </footer>
