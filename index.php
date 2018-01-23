@@ -20,6 +20,7 @@ $pagetitle[6] = 'TOP Partners latest week ( since '. date('l, d F Y',strtotime("
 $pagetitle[9] = 'TOP Partners latest week chart( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
 $pagetitle[7] = 'TOP Partner Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
 $pagetitle[8] = 'TOP 3rd Party Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
+$pagetitle[11] = 'TOP Stories YEAR '. date("Y",strtotime($p_date)) ;
 $pagetitle[14] = 'Story '.$p_fact_id.' hits (Date range: '.$p_date_start.' ==> '.$p_date_end.' ) ' ;
 $date_start = date("Y-m-d");
 ?>
@@ -47,13 +48,16 @@ $date_start = date("Y-m-d");
     <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
 </ul>
 <ul id="dropdown2" class="dropdown-content">
-    <li><a href="index.php?tb=11&dt=2017-01-01">Year</a></li>
-    <li><a href="index.php?tb=3&dt=2017-12-01">Last Month All</a></li>
+    <li><a href="index.php?tb=3&dt=2017-12-01">Last MONTH All</a></li>
     <li><a href="index.php?tb=4">Last 20 days All</a></li>
     <li><a href="index.php?tb=5">Last week All</a></li>
+    <li><a href="index.php?tb=11&dt=2017-01-01">Prev YEAR All</a></li>
     <li class="divider"></li>
-    <li><a href="index.php?tb=7">Last week Partners</a></li>
-    <li><a href="index.php?tb=8">Last week 3rd Party</a></li>
+    <li><a href="index.php?tb=7">WEEK Partners</a></li>
+    <li><a href="index.php?tb=8">WEEK Sourced/Pool</a></li>
+    <li class="divider"></li>
+    <li><a href="index.php?tb=12&dt=2017-01-01">YEAR Partners</a></li>
+    <li><a href="index.php?tb=13&dt=2017-01-01">YEAR Sourced/Pool</a></li>
 
 </ul>
   <nav class="enex_blue2" role="navigation">
@@ -103,6 +107,8 @@ $date_start = date("Y-m-d");
             case 8  : ttx_top_stories_month($p_date,'week','3RDPARTY',20); break;
             case 9  : ttx_chart(); break ;
             case 11  : ttx_top_stories_month($p_date,'year','',100); break;
+            case 12  : ttx_top_stories_month($p_date,'year','PARTNERS',50); break;
+            case 13  : ttx_top_stories_month($p_date,'year','3RDPARTY',50); break;
             case 14  : ttx_item_hits($p_fact_id,$p_date_start,$p_date_end) ; break;
             default :
                 ttx_latest() ; break;
