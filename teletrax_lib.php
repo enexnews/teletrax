@@ -134,6 +134,15 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
     if ($ttx_type=='month') {
+        echo "<div>
+        <a href='index.php?tb=3&dt=", (substr(date('Y-m-d', strtotime("-3 month", strtotime($p_date))), 0, 8) . "01"), "' class='waves-effect waves-light btn'>", date('F y', strtotime("-3 month", strtotime($p_date))), "</a>
+        <a href='index.php?tb=3&dt=", (substr(date('Y-m-d', strtotime("-2 month", strtotime($p_date))), 0, 8) . "01"), "' class='waves-effect waves-light btn'>", date('F y', strtotime("-2 month", strtotime($p_date))), "</a>
+        <a href='index.php?tb=3&dt=", (substr(date('Y-m-d', strtotime("-1 month", strtotime($p_date))), 0, 8) . "01"), "' class='waves-effect waves-light btn'>", date('F y', strtotime("-1 month", strtotime($p_date))), "</a>
+        <a href='index.php?tb=3&dt=", (substr(date('Y-m-d', strtotime("-0 month", strtotime($p_date))), 0, 8) . "01"), "' class='waves-effect waves-light btn blue'>", date('F y', strtotime("-0 month", strtotime($p_date))), "</a>";
+        if (substr($p_date, 0, 8)!= substr($today, 0, 8)) {
+         echo " <a href='index.php?tb=3&dt=", (substr(date('Y-m-d', strtotime("-0 month", strtotime($today))), 0, 8) . "01"), "' class='waves-effect waves-light btn grey'>", date('F y', strtotime("-0 month", strtotime($today))), "</a>";
+        }
+        echo "</div>";
         $bench_start_date = substr($p_date,0,8)."01" ;
         $bench_end_date = substr(date('Y-m-d',strtotime("+1 month",strtotime($bench_start_date))),0,8)."01" ;
     }
