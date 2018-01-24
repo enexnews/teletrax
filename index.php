@@ -13,7 +13,7 @@ if (!isset($_GET['tb'])) {  $p_tab = 1 ;} else  {
 } // check tab setting
 $pagetitle[1] = 'Latest Hits' ;
 $pagetitle[2] = 'TOP Partners Month ( Usage of ENEX items! ) <strong>'. date("F-Y",strtotime($p_date)).'</strong>' ;
-$pagetitle[3] = 'TOP Stories '. date("F-Y",strtotime($p_date)) ;
+$pagetitle[3] = 'TOP Stories <strong>'. date("F-Y",strtotime($p_date)).'</strong>' ;
 $pagetitle[4] = 'TOP Stories latest 20 days ( since '. date('l, d F Y',strtotime("-20 days",strtotime($today))).")" ;
 $pagetitle[5] = 'TOP Stories latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
 $pagetitle[6] = 'TOP Partners latest week ( since '. date('l, d F Y',strtotime("-7 days",strtotime($today))).")" ;
