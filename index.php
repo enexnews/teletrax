@@ -50,25 +50,26 @@ $date_start = date("Y-m-d");
 </head>
 <body>
 <ul id="dropdown1" class="dropdown-content">
-    <li><a href="index.php?tb=18">Yesterday</a></li>
-    <li><a href="index.php?tb=2">Month</a></li>
-    <li><a href="index.php?tb=15&dt=2017-11-01">Year</a></li>
+    <li><a href="index.php?tb=18">DAILY</a></li>
+    <li><a href="index.php?tb=2">MONTHLY</a></li>
+    <li><a href="index.php?tb=15">YEARLY</a></li>
     <li class="divider"></li>
-    <li><a href="index.php?tb=6">Last 7 days</a></li>
-    <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
+    <li><a href="index.php?tb=6">LAST 7 DAYS</a></li>
+    <li><a href="index.php?tb=9">LAST 7 DAYS Chart</a></li>
 </ul>
 <ul id="dropdown2" class="dropdown-content">
-    <li><a href="index.php?tb=17">Yesterday</a></li>
-    <li><a href="index.php?tb=3">Last Month All</a></li>
-    <li><a href="index.php?tb=4">Last 20 days All</a></li>
-    <li><a href="index.php?tb=5">Last week All</a></li>
-    <li><a href="index.php?tb=11?dt=2017-01-01">Prev YEAR All</a></li>
+    <li><a href="index.php?tb=17">DAILY</a></li>
+    <li><a href="index.php?tb=3">MONTHLY</a></li>
+    <li><a href="index.php?tb=11">YEARLY All</a></li>
     <li class="divider"></li>
-    <li><a href="index.php?tb=7">WEEK Partners</a></li>
-    <li><a href="index.php?tb=8">WEEK Sourced/Pool</a></li>
+    <li><a href="index.php?tb=4">LAST 20 DAYS All</a></li>
+    <li><a href="index.php?tb=5">LAST WEEK All</a></li>
     <li class="divider"></li>
-    <li><a href="index.php?tb=12&dt=2017-01-01">YEAR Partners</a></li>
-    <li><a href="index.php?tb=13&dt=2017-01-01">YEAR Sourced/Pool</a></li>
+    <li><a href="index.php?tb=7">LAST WEEK Partners</a></li>
+    <li><a href="index.php?tb=8">LAST WEEK Sourced/Pool</a></li>
+    <li class="divider"></li>
+    <li><a href="index.php?tb=12&dt=2017-01-01">LAST YEAR Partners</a></li>
+    <li><a href="index.php?tb=13&dt=2017-01-01">LAST YEAR Sourced/Pool</a></li>
 
 </ul>
   <nav class="enex_blue2" role="navigation">
@@ -175,7 +176,7 @@ $date_start = date("Y-m-d");
     </div>
     <div class="footer-copyright enex_lightblue">
       <div class="container">
-      V.0.5 / 24.01.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
+      V.0.6 / 24.01.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
       </div>
     </div>
   </footer>
@@ -296,8 +297,10 @@ $date_start = date("Y-m-d");
         bLengthChange: true,
         "pageLength": 24
     } );
-
-
+    $('.dropdown2').dropdown({
+            belowOrigin: true, // Displays dropdown below the button
+        }
+    );
 </script>
 
 </body>

@@ -25,3 +25,6 @@
 .picker__date-display {
     background-color: steelblue;
 }
+.dropdown-content li > a, .dropdown-content li > span {
+    font-size: 85% ;
+}
