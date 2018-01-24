@@ -57,6 +57,13 @@ function ttx_top_partners($p_date,$ttx_type) {
         $bench_end_date = date('Y-m-d',strtotime("+1 days",strtotime($p_date))) ;
     }
     elseif($ttx_type=='year') {
+        echo "<div align='center'>
+        <a href='index.php?tb=15&dt=", (substr(date('Y-m-d', strtotime("-1 year", strtotime($p_date))), 0, 5) . "01-01"), "' class='waves-effect waves-light btn'>", date('Y', strtotime("-1 year", strtotime($p_date))), "</a>
+        <a href='index.php?tb=15&dt=", (substr(date('Y-m-d', strtotime("-0 month", strtotime($p_date))), 0, 5) . "01-01"), "' class='waves-effect waves-light btn blue'>", date('Y', strtotime("0 year", strtotime($p_date))), "</a>";
+        if (substr($p_date, 0, 5)!= substr($today, 0, 5)) {
+            echo " <a href='index.php?tb=15&dt=", (substr(date('Y-m-d', strtotime("-0 month", strtotime($today))), 0, 5) . "01-01"), "' class='waves-effect waves-light btn grey'>", date('Y', strtotime("-0 month", strtotime($today))), "</a>";
+        }
+        echo "</div>";
         $bench_start_date = substr($p_date,0,5)."01-01" ;
         $bench_end_date = substr(date('Y-m-d',strtotime("+1 year",strtotime($bench_start_date))),0,8)."01" ;
     }
@@ -225,7 +232,7 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
                             <td><a href='index.php?tb=14&id=<?php echo $row['source_id']; ?>&dts=<?php echo $bench_start_date; ?>&dte=<?php echo $bench_end_date; ?>'><?php echo $row['source_id']; ?></a></td>
                         </tr>
                         <?php
-                    }                   
+                    }
                     ?>
     </tbody>
     </table>
