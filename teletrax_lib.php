@@ -46,7 +46,7 @@ function ttx_top_partners($p_date,$ttx_type) {
         <div align='center'> <button class="datepickerpartners waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
         <?php
         $bench_start_date = date('Y-m-d',strtotime("-1 days",strtotime($p_date))) ;
-        $bench_end_date = date('Y-m-d',strtotime("-1 days",strtotime($p_date))) ;
+        $bench_end_date = date('Y-m-d',strtotime("-0 days",strtotime($p_date))) ;
     }
     elseif($ttx_type=='anyday') {
         // Any other single day
@@ -54,7 +54,7 @@ function ttx_top_partners($p_date,$ttx_type) {
         <div align='center'> <button class="datepickerpartners waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
         <?php
         $bench_start_date = date('Y-m-d',strtotime("0 days",strtotime($p_date))) ;
-        $bench_end_date = date('Y-m-d',strtotime("-0 days",strtotime($p_date))) ;
+        $bench_end_date = date('Y-m-d',strtotime("+1 days",strtotime($p_date))) ;
     }
     elseif($ttx_type=='year') {
         $bench_start_date = substr($p_date,0,5)."01-01" ;
