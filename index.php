@@ -39,7 +39,7 @@ $date_start = date("Y-m-d");
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>ENEX TELETRAX REPORTS</title>
+  <title>TRAXMAN:) - ENEX TELETRAX REPORTS</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -73,7 +73,7 @@ $date_start = date("Y-m-d");
 
 </ul>
   <nav class="enex_blue2" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="css/ENEXlogo.png" style="width:220px; height:45px; margin-top:10px;"></a>
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="css/ENEXlogo.png" style="width:220px; height:45px; margin-top:10px;"><img src="css/traxman.png" style="margin-top:10px;"></a>
       <ul class="right hide-on-med-and-down">
 
         <li><a href="index.php">Latest Hits</a></li>

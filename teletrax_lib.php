@@ -86,11 +86,12 @@ function ttx_top_partners($p_date,$ttx_type) {
                         </tr>
                         <?php
                     }
-                    echo "<pre style='color:#999;'>",$sql,"</pre>";
+
                     ?>
     </tbody>
     </table>
     <?php
+    echo "<pre style='color:#999;'>",$sql,"</pre>";
     $CoID->close();
 }
 //********************************************
@@ -224,12 +225,12 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
                             <td><a href='index.php?tb=14&id=<?php echo $row['source_id']; ?>&dts=<?php echo $bench_start_date; ?>&dte=<?php echo $bench_end_date; ?>'><?php echo $row['source_id']; ?></a></td>
                         </tr>
                         <?php
-                    }
-                    echo "<pre style='color:#999;'>",$sql,"</pre>";
+                    }                   
                     ?>
     </tbody>
     </table>
     <?php
+    echo "<pre style='color:#999;'>",$sql,"</pre>";
     $CoID->close();
 }
 
