@@ -28,7 +28,7 @@ function ttx_top_partners($p_date,$ttx_type) {
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
     if ($ttx_type=='month') {
-        echo "<div>
+        echo "<div align='center'>
         <a href='index.php?tb=2&dt=", (substr(date('Y-m-d', strtotime("-3 month", strtotime($p_date))), 0, 8) . "01"), "' class='waves-effect waves-light btn'>", date('F y', strtotime("-3 month", strtotime($p_date))), "</a>
         <a href='index.php?tb=2&dt=", (substr(date('Y-m-d', strtotime("-2 month", strtotime($p_date))), 0, 8) . "01"), "' class='waves-effect waves-light btn'>", date('F y', strtotime("-2 month", strtotime($p_date))), "</a>
         <a href='index.php?tb=2&dt=", (substr(date('Y-m-d', strtotime("-1 month", strtotime($p_date))), 0, 8) . "01"), "' class='waves-effect waves-light btn'>", date('F y', strtotime("-1 month", strtotime($p_date))), "</a>
@@ -134,7 +134,7 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
     if ($ttx_type=='month') {
-        echo "<div>
+        echo "<div align='center'>
         <a href='index.php?tb=3&dt=", (substr(date('Y-m-d', strtotime("-3 month", strtotime($p_date))), 0, 8) . "01"), "' class='waves-effect waves-light btn'>", date('F y', strtotime("-3 month", strtotime($p_date))), "</a>
         <a href='index.php?tb=3&dt=", (substr(date('Y-m-d', strtotime("-2 month", strtotime($p_date))), 0, 8) . "01"), "' class='waves-effect waves-light btn'>", date('F y', strtotime("-2 month", strtotime($p_date))), "</a>
         <a href='index.php?tb=3&dt=", (substr(date('Y-m-d', strtotime("-1 month", strtotime($p_date))), 0, 8) . "01"), "' class='waves-effect waves-light btn'>", date('F y', strtotime("-1 month", strtotime($p_date))), "</a>
