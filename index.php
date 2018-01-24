@@ -4,7 +4,7 @@ require_once("teletrax_lib.php"); // include PHP functions library
 if (!isset($_GET['p'])) {$p_message = "NOPE";} else  {$p_message = $_GET['p'] ; } // check messages
 if (!isset($_GET['id'])) {$p_fact_id =0; } else  {$p_fact_id = $_GET['id']; } // check id parameter
 if (!isset($_GET['fc']))  {$p_funct = 'NOPE' ; }  else  {$p_funct = $_GET['fc']; } // check function setting (edit,create ...)
-if (!isset($_GET['dt'])or ($_GET['dt']=='ALL')) {$p_date = 'ALL'; $hlp_date=$today;} else  {$p_date = $_GET['dt']; $hlp_date=$p_date; } // check date parameter
+if (!isset($_GET['dt'])or ($_GET['dt']=='ALL')) {$p_date = $today; $hlp_date=$today;} else  {$p_date = $_GET['dt']; $hlp_date=$p_date; } // check date parameter
 if (!isset($_GET['dts'])) {$p_date_start = $today; } else  {$p_date_start = $_GET['dts'] ;} // check date parameter
 if (!isset($_GET['dte'])) {$p_date_end = $today; } else  {$p_date_end = $_GET['dte']; } // check date parameter
 if (!isset($_GET['tb'])) {  $p_tab = 1 ;} else  {
@@ -25,6 +25,9 @@ $pagetitle[12] = 'TOP Stories YEAR Partners '. date("Y",strtotime($p_date)) ;
 $pagetitle[13] = 'TOP Stories YEAR Sourced '. date("Y",strtotime($p_date)) ;
 $pagetitle[15] = 'TOP Partners YEAR ( Usage of ENEX items! )'. date("Y",strtotime($p_date)) ;
 $pagetitle[14] = 'Story '.$p_fact_id.' hits (Date range: '.$p_date_start.' ==> '.$p_date_end.' ) ' ;
+$pagetitle[17] = 'TOP Stories Yesterday ('. date('l, d F Y',strtotime("-1 days",strtotime($today))).")" ;
+$pagetitle[18] = 'TOP Partners (Usage of ENEX items) Yesterday ('. date('l, d F Y',strtotime("-1 days",strtotime($today))).")" ;
+
 $date_start = date("Y-m-d");
 ?>
 
@@ -45,17 +48,19 @@ $date_start = date("Y-m-d");
 </head>
 <body>
 <ul id="dropdown1" class="dropdown-content">
-    <li><a href="index.php?tb=2&dt=2017-12-01">MONTH</a></li>
-    <li><a href="index.php?tb=15&dt=2017-11-01">YEAR</a></li>
+    <li><a href="index.php?tb=18">Yesterday</a></li>
+    <li><a href="index.php?tb=2">Month</a></li>
+    <li><a href="index.php?tb=15&dt=2017-11-01">Year</a></li>
     <li class="divider"></li>
     <li><a href="index.php?tb=6">Last 7 days</a></li>
     <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
 </ul>
 <ul id="dropdown2" class="dropdown-content">
-    <li><a href="index.php?tb=3&dt=2017-12-01">Last MONTH All</a></li>
+    <li><a href="index.php?tb=17">Yesterday</a></li>
+    <li><a href="index.php?tb=3">Last Month All</a></li>
     <li><a href="index.php?tb=4">Last 20 days All</a></li>
     <li><a href="index.php?tb=5">Last week All</a></li>
-    <li><a href="index.php?tb=11&dt=2017-01-01">Prev YEAR All</a></li>
+    <li><a href="index.php?tb=11?dt=2017-01-01">Prev YEAR All</a></li>
     <li class="divider"></li>
     <li><a href="index.php?tb=7">WEEK Partners</a></li>
     <li><a href="index.php?tb=8">WEEK Sourced/Pool</a></li>
@@ -75,13 +80,13 @@ $date_start = date("Y-m-d");
 
       <ul id="nav-mobile" class="side-nav">
 
-          <li><a href="index.php?tb=2&dt=2017-11-01">Month</a></li>
+          <li><a href="index.php?tb=2">Month</a></li>
           <li><a href="index.php?tb=2&dt=2017-11-01">Year</a></li>
           <li><a href="index.php?tb=6">Last 7 days</a></li>
           <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
           <li class="divider"></li>
           <li><a href="index.php?tb=11&dt=2017-01-01">Year</a></li>
-          <li><a href="index.php?tb=3&dt=2017-11-01">Last Month All</a></li>
+          <li><a href="index.php?tb=3">Last Month All</a></li>
           <li><a href="index.php?tb=4">Last 20 days All</a></li>
           <li><a href="index.php?tb=5">Last week All</a></li>
           <li><a href="index.php?tb=7">Last week Partners</a></li>
@@ -116,6 +121,8 @@ $date_start = date("Y-m-d");
             case 13  : ttx_top_stories_month($p_date,'year','3RDPARTY',50); break;
             case 14  : ttx_item_hits($p_fact_id,$p_date_start,$p_date_end) ; break;
             case 15  : ttx_top_partners($p_date,'year'); break;
+            case 17  : ttx_top_stories_month($p_date,'yesterday','',150); break;
+            case 18  : ttx_top_partners($p_date,'yesterday'); break;
             default :
                 ttx_latest() ; break;
         }

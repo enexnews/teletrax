@@ -31,6 +31,11 @@ function ttx_top_partners($p_date,$ttx_type) {
         $bench_start_date = substr($p_date, 0, 8) . "01";
         $bench_end_date = substr(date('Y-m-d', strtotime("+1 month", strtotime($bench_start_date))), 0, 8) . "01";
     }
+    elseif($ttx_type=='yesterday') {
+        // latest 20 days
+        $bench_start_date = date('Y-m-d',strtotime("-1 days",strtotime($today))) ;
+        $bench_end_date = date('Y-m-d') ;
+    }
     elseif($ttx_type=='year') {
         $bench_start_date = substr($p_date,0,5)."01-01" ;
         $bench_end_date = substr(date('Y-m-d',strtotime("+1 year",strtotime($bench_start_date))),0,8)."01" ;
@@ -122,6 +127,11 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
     if ($ttx_type=='month') {
         $bench_start_date = substr($p_date,0,8)."01" ;
         $bench_end_date = substr(date('Y-m-d',strtotime("+1 month",strtotime($bench_start_date))),0,8)."01" ;
+    }
+    elseif($ttx_type=='yesterday') {
+        // latest 20 days
+        $bench_start_date = date('Y-m-d',strtotime("-1 days",strtotime($today))) ;
+        $bench_end_date = date('Y-m-d') ;
     }
     elseif($ttx_type=='20days') {
         // latest 20 days
