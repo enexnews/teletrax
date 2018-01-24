@@ -171,7 +171,7 @@ $date_start = date("Y-m-d");
     </div>
     <div class="footer-copyright enex_lightblue">
       <div class="container">
-      V.0.4 / 23.01.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
+      V.0.5 / 24.01.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
       </div>
     </div>
   </footer>
