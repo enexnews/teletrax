@@ -27,6 +27,8 @@ $pagetitle[15] = 'TOP Partners YEAR ( Usage of ENEX items! )'. date("Y",strtotim
 $pagetitle[14] = 'Story '.$p_fact_id.' hits (Date range: '.$p_date_start.' ==> '.$p_date_end.' ) ' ;
 $pagetitle[17] = 'TOP Stories Yesterday ('. date('l, d F Y',strtotime("-1 days",strtotime($today))).")" ;
 $pagetitle[18] = 'TOP Partners (Usage of ENEX items) Yesterday ('. date('l, d F Y',strtotime("-1 days",strtotime($today))).")" ;
+$pagetitle[19] = 'TOP Stories <strong>'. date('l, d F Y',strtotime("0 days",strtotime($p_date)))."</strong>" ;
+$pagetitle[20] = 'TOP Partners <strong>'. date('l, d F Y',strtotime("0 days",strtotime($p_date)))."</strong>" ;
 
 $date_start = date("Y-m-d");
 ?>
@@ -123,6 +125,8 @@ $date_start = date("Y-m-d");
             case 15  : ttx_top_partners($p_date,'year'); break;
             case 17  : ttx_top_stories_month($p_date,'yesterday','',150); break;
             case 18  : ttx_top_partners($p_date,'yesterday'); break;
+            case 19  : ttx_top_stories_month($p_date,'anyday','',150); break;
+            case 20  : ttx_top_partners($p_date,'anyday'); break ;
             default :
                 ttx_latest() ; break;
         }
@@ -248,6 +252,38 @@ $date_start = date("Y-m-d");
     });
 </script>
 <script>
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        formatSubmit: 'yyyy-mm-dd',
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        onSet: function( event ) {
+            if ( event.select ) {
+                //alert('TEST'+ this.get( 'select', 'yyyy-mm-dd' ));
+                document.location='index.php?tb=19&dt='+this.get( 'select', 'yyyy-mm-dd' )+'';
+            }
+        },
+        closeOnSelect: false // Close upon selecting a date,
+    }).css('cursor', 'pointer');
+
+    $('.datepickerpartners').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        formatSubmit: 'yyyy-mm-dd',
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        onSet: function( event ) {
+            if ( event.select ) {
+                //alert('TEST'+ this.get( 'select', 'yyyy-mm-dd' ));
+                document.location='index.php?tb=20&dt='+this.get( 'select', 'yyyy-mm-dd' )+'';
+            }
+        },
+        closeOnSelect: false // Close upon selecting a date,
+    }).css('cursor', 'pointer');
+
     $('#topstories_monthtable').dataTable({
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
         "order": [ 1, 'desc' ],

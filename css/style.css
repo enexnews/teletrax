@@ -22,3 +22,6 @@
 .enex_blue2text {
     color: #144a78 !important;
 }
+.picker__date-display {
+    background-color: steelblue;
+}

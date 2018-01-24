@@ -41,9 +41,20 @@ function ttx_top_partners($p_date,$ttx_type) {
         $bench_end_date = substr(date('Y-m-d', strtotime("+1 month", strtotime($bench_start_date))), 0, 8) . "01";
     }
     elseif($ttx_type=='yesterday') {
-        // latest 20 days
-        $bench_start_date = date('Y-m-d',strtotime("-1 days",strtotime($today))) ;
-        $bench_end_date = date('Y-m-d') ;
+        // Yesterday
+        ?>
+        <div align='center'> <button class="datepickerpartners waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
+        <?php
+        $bench_start_date = date('Y-m-d',strtotime("-1 days",strtotime($p_date))) ;
+        $bench_end_date = date('Y-m-d',strtotime("-1 days",strtotime($p_date))) ;
+    }
+    elseif($ttx_type=='anyday') {
+        // Any other single day
+        ?>
+        <div align='center'> <button class="datepickerpartners waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
+        <?php
+        $bench_start_date = date('Y-m-d',strtotime("0 days",strtotime($p_date))) ;
+        $bench_end_date = date('Y-m-d',strtotime("-0 days",strtotime($p_date))) ;
     }
     elseif($ttx_type=='year') {
         $bench_start_date = substr($p_date,0,5)."01-01" ;
@@ -147,9 +158,20 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
         $bench_end_date = substr(date('Y-m-d',strtotime("+1 month",strtotime($bench_start_date))),0,8)."01" ;
     }
     elseif($ttx_type=='yesterday') {
+        // Yesterday
+        ?>
+        <div align='center'> <button class="datepicker waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
+        <?php
+        $bench_start_date = date('Y-m-d',strtotime("-1 days",strtotime($p_date))) ;
+        $bench_end_date = date('Y-m-d',strtotime("-1 days",strtotime($p_date))) ;
+    }
+    elseif($ttx_type=='anyday') {
         // latest 20 days
-        $bench_start_date = date('Y-m-d',strtotime("-1 days",strtotime($today))) ;
-        $bench_end_date = date('Y-m-d') ;
+        ?>
+        <div align='center'> <button class="datepicker waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
+        <?php
+        $bench_start_date = date('Y-m-d',strtotime("0 days",strtotime($p_date))) ;
+        $bench_end_date = date('Y-m-d',strtotime("-0 days",strtotime($p_date))) ;
     }
     elseif($ttx_type=='20days') {
         // latest 20 days
