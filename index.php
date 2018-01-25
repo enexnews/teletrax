@@ -82,7 +82,7 @@ $date_start = date("Y-m-d");
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-          <li>PARTNERS</li>
+          <li><a style="color:#336699;">PARTNERS</a></li>
           <li class="divider"></li>
           <li><a href="index.php?tb=18">DAILY</a></li>
           <li><a href="index.php?tb=2">MONTHLY</a></li>
@@ -91,7 +91,7 @@ $date_start = date("Y-m-d");
           <li><a href="index.php?tb=6">LAST 7 DAYS</a></li>
           <li><a href="index.php?tb=9">LAST 7 DAYS Chart</a></li>
           <li class="divider"></li>
-          <li>STORIES</li>
+          <li><a style="color:#336699;">STORIES</a></li>
           <li class="divider"></li>
           <li><a href="index.php?tb=17">DAILY</a></li>
           <li><a href="index.php?tb=3">MONTHLY</a></li>
