@@ -73,7 +73,7 @@ $date_start = date("Y-m-d");
 
 </ul>
   <nav class="enex_blue2" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="css/ENEXlogo.png" style="width:220px; height:45px; margin-top:10px;"><img src="css/traxman.png" style="margin-top:10px;"></a>
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="css/ENEXlogo.png" style="width:220px; height:45px; margin-top:10px;"><img class='hide-on-med-and-down' src="css/traxman.png" style="margin-top:10px;"></a>
       <ul class="right hide-on-med-and-down">
 
         <li><a href="index.php">Latest Hits</a></li>
@@ -82,18 +82,29 @@ $date_start = date("Y-m-d");
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-
-          <li><a href="index.php?tb=2">Month</a></li>
-          <li><a href="index.php?tb=15&dt=2017-11-01">Year</a></li>
-          <li><a href="index.php?tb=6">Last 7 days</a></li>
-          <li><a href="index.php?tb=9">Last 7 days Chart</a></li>
+          <li>PARTNERS</li>
           <li class="divider"></li>
-          <li><a href="index.php?tb=11&dt=2017-01-01">Year</a></li>
-          <li><a href="index.php?tb=3">Last Month All</a></li>
-          <li><a href="index.php?tb=4">Last 20 days All</a></li>
-          <li><a href="index.php?tb=5">Last week All</a></li>
-          <li><a href="index.php?tb=7">Last week Partners</a></li>
-          <li><a href="index.php?tb=8">Last week 3rd Party</a></li>
+          <li><a href="index.php?tb=18">DAILY</a></li>
+          <li><a href="index.php?tb=2">MONTHLY</a></li>
+          <li><a href="index.php?tb=15">YEARLY</a></li>
+          <li class="divider"></li>
+          <li><a href="index.php?tb=6">LAST 7 DAYS</a></li>
+          <li><a href="index.php?tb=9">LAST 7 DAYS Chart</a></li>
+          <li class="divider"></li>
+          <li>STORIES</li>
+          <li class="divider"></li>
+          <li><a href="index.php?tb=17">DAILY</a></li>
+          <li><a href="index.php?tb=3">MONTHLY</a></li>
+          <li><a href="index.php?tb=11">YEARLY All</a></li>
+          <li class="divider"></li>
+          <li><a href="index.php?tb=4">LAST 20 DAYS All</a></li>
+          <li><a href="index.php?tb=5">LAST WEEK All</a></li>
+          <li class="divider"></li>
+          <li><a href="index.php?tb=7">LAST WEEK Partners</a></li>
+          <li><a href="index.php?tb=8">LAST WEEK Sourced/Pool</a></li>
+          <li class="divider"></li>
+          <li><a href="index.php?tb=12&dt=2017-01-01">LAST YEAR Partners</a></li>
+          <li><a href="index.php?tb=13&dt=2017-01-01">LAST YEAR Sourced/Pool</a></li>
         </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
