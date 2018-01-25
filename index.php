@@ -157,8 +157,8 @@ $date_start = date("Y-m-d");
     <div class="container enex_blue2">
       <div class="row">
         <div class="col l6 s12">
-          <h5 class="white-text">Reports</h5>
-          <p class="grey-text text-lighten-4">This tool is still under construction. The various reports will appear very soon</p>
+          <h5 class="white-text">Info</h5>
+          <p class="grey-text text-lighten-4">This tool is still under construction. More features coming up soon. Stay tuned.  R. </p>
 
 
         </div>
