@@ -195,6 +195,17 @@ $date_start = date("Y-m-d");
       </div>
     </div>
   </footer>
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Modal content</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal_dynamic_content"></div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+</div>
 
 
   <!--  Scripts <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
@@ -268,6 +279,7 @@ $date_start = date("Y-m-d");
     });
 </script>
 <script>
+    $('.modal').modal();
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -316,6 +328,14 @@ $date_start = date("Y-m-d");
             belowOrigin: true, // Displays dropdown below the button
         }
     );
+    $('a.modaltrig').on('click', function() {
+        var sourceid = $(this).parent().find('span').text();
+        var storytitle = $(this).parent().parent().find('.table_sourcetitle').text();
+        $('div.modal-content').html('<h4> STEP ID: '+sourceid+'</h4><h5>'+storytitle+'</h5>');
+        // .modal_dynamic_content
+        $('.modal_dynamic_content').load("teletrax_pload.php",{ sourceid:sourceid });
+        $('#modal1').modal('open');
+    });
 </script>
 
 </body>
