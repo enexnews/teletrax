@@ -196,7 +196,7 @@ $date_start = date("Y-m-d");
     </div>
   </footer>
 <!-- Modal Structure -->
-<div id="modal1" class="modal" style="width:30%; padding: 5px;">
+<div id="modal1" class="modal" style="width:40%; padding: 5px;">
     <div class="modal-content">
         <h4>Modal content</h4>
         <p>A bunch of text</p>
