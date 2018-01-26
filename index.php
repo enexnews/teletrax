@@ -191,7 +191,7 @@ $date_start = date("Y-m-d");
     </div>
     <div class="footer-copyright enex_lightblue">
       <div class="container">
-      V.0.8 / 25.01.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
+      V.0.9 / 26.01.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
       </div>
     </div>
   </footer>
@@ -203,7 +203,7 @@ $date_start = date("Y-m-d");
     </div>
     <div class="modal_dynamic_content"></div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn">Close</a>
     </div>
 </div>
 
@@ -329,7 +329,7 @@ $date_start = date("Y-m-d");
         }
     );
     $('a.modaltrig').on('click', function() {
-        var sourceid = $(this).parent().find('span').text();
+        var sourceid = $(this).parent().parent().find('span').text();
         var storytitle = $(this).parent().parent().find('.table_sourcetitle').text();
         var storydate = $(this).parent().parent().find('.table_sourcedate').text();
         var sdate = $(this).data("sdate") ;
