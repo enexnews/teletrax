@@ -226,10 +226,10 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
                             <td><?php echo $row['topstation']; ?></td>
                             <td><?php echo $row['storyhits']; ?></td>
                             <td class="table_sourcetitle"><strong><a href='https://enex.lu/members/dopedetail/<?php echo $row['storyrecnr']; ?>' target='_blank'><?php echo $row['source_title']; ?></strong></a></strong></td>
-                            <td><?php echo $row['source_date']; ?></td>
+                            <td class="table_sourcedate"><?php echo $row['source_date']; ?></td>
                             <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
                             <td><?php echo $row['source_partner']; ?></td>
-                            <td class="table_sourceid"><a href='index.php?tb=14&id=<?php echo $row['source_id']; ?>&dts=<?php echo $bench_start_date; ?>&dte=<?php echo $bench_end_date; ?>'><span><?php echo $row['source_id']; ?></span></a> <a style="cursor: pointer;" class="modaltrig"><i class="material-icons">announcement</i></a></td>
+                            <td class="table_sourceid"><a href='index.php?tb=14&id=<?php echo $row['source_id']; ?>&dts=<?php echo $bench_start_date; ?>&dte=<?php echo $bench_end_date; ?>'><span><?php echo $row['source_id']; ?></span></a> <a style="cursor: pointer;" class="modaltrig" data-sdate="<?php echo $bench_start_date; ?>" data-edate="<?php echo $bench_end_date; ?>" ><i class="material-icons">announcement</i></a></td>
                         </tr>
                         <?php
                     }
@@ -238,6 +238,8 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
     </table>
     <?php
     echo "<pre style='color:#999;'>",$sql,"</pre>";
+    $ajax_sdate = $bench_start_date ;
+    $ajax_edate = $bench_end_date ;
     $CoID->close();
 }
 

@@ -196,7 +196,7 @@ $date_start = date("Y-m-d");
     </div>
   </footer>
 <!-- Modal Structure -->
-<div id="modal1" class="modal">
+<div id="modal1" class="modal" style="width:30%; padding: 5px;">
     <div class="modal-content">
         <h4>Modal content</h4>
         <p>A bunch of text</p>
@@ -331,9 +331,12 @@ $date_start = date("Y-m-d");
     $('a.modaltrig').on('click', function() {
         var sourceid = $(this).parent().find('span').text();
         var storytitle = $(this).parent().parent().find('.table_sourcetitle').text();
-        $('div.modal-content').html('<h4> STEP ID: '+sourceid+'</h4><h5>'+storytitle+'</h5>');
+        var storydate = $(this).parent().parent().find('.table_sourcedate').text();
+        var sdate = $(this).data("sdate") ;
+        var edate = $(this).data("edate") ;
+        $('div.modal-content').html('<h6> STEP ID: '+sourceid+' ('+storydate+')</h6><h5>'+storytitle+'</h5>');
         // .modal_dynamic_content
-        $('.modal_dynamic_content').load("teletrax_pload.php",{ sourceid:sourceid, sdate:"<?php echo $bench_start_date; ?>",edate:"<?php echo $bench_end_date; ?>" });
+        $('.modal_dynamic_content').load("teletrax_pload.php",{ sourceid:sourceid, sdate:sdate,edate:edate });
         $('#modal1').modal('open');
     });
 </script>
