@@ -6,6 +6,7 @@
  * Time: 22:59
  */
 echo $_POST['sourceid'];
+echo "<br>",$_POST['sdate'], " - ",$_POST['edate'];
 require('../fact15/fact_config.php');
 $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
 $CoID->select_db($config['dbname']);

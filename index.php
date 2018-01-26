@@ -333,7 +333,7 @@ $date_start = date("Y-m-d");
         var storytitle = $(this).parent().parent().find('.table_sourcetitle').text();
         $('div.modal-content').html('<h4> STEP ID: '+sourceid+'</h4><h5>'+storytitle+'</h5>');
         // .modal_dynamic_content
-        $('.modal_dynamic_content').load("teletrax_pload.php",{ sourceid:sourceid });
+        $('.modal_dynamic_content').load("teletrax_pload.php",{ sourceid:sourceid, sdate:"<?php echo $bench_start_date; ?>",edate:"<?php echo $bench_end_date; ?>" });
         $('#modal1').modal('open');
     });
 </script>
