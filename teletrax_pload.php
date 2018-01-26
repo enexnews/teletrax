@@ -14,6 +14,7 @@ $sql="SELECT * from partners  order by partner_code" ;
 $result = $CoID->query($sql) ;
 
 while ($row  =  $result->fetch_object()) {
-    echo $row->partner_code,"<br>";
+    //echo $row->partner_code,"<br>";
+	
 }
 $CoID->close();
