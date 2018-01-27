@@ -86,8 +86,10 @@ function ttx_top_partners($p_date,$ttx_type) {
                     while ( $row = $query->fetch_array()) {
                         ?>
                         <tr>
-                            <td><?php echo $row['tt_partner'] ;?></td>
-                            <td><?php echo $row['storycount'] ;?></td>
+                            <td class="partnerid"><span><?php echo $row['tt_partner'];?></span>
+                                <a style="cursor: pointer;" class="partnertrig tooltipped" style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['storycount']; ?> stories detected!' data-sdate="<?php echo $bench_start_date; ?>" data-edate="<?php echo $bench_end_date; ?>" ><i class="material-icons">announcement</i></a>
+                            </td>
+                            <td class="storycount" ><?php echo $row['storycount'] ;?></td>
                             <td><?php echo $row['hitcount']; ?></td>
 
                         </tr>

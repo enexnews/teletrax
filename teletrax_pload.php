@@ -14,7 +14,7 @@ $CoID->select_db($config['dbname']);
 $sdate = $_POST['sdate'] ;
 $edate = $_POST['edate'] ;
 
-if (!isset($_POST['sourceid'])) {
+if (isset($_POST['sourceid'])) {
     // AJAX load of Partners detected in story (STORIES section)
     $ttx_id = $_POST['sourceid'];
     $sql = "SELECT distinct tt_partner FROM teletrax_hits WHERE source_id = $ttx_id and (tt_detection_start >= '" . $sdate . " 00:00:00' AND tt_detection_start < '" . $edate . " 23:59:59' ) ORDER BY tt_partner asc ";
@@ -32,6 +32,6 @@ else {
     $ttx_id = $_POST['partnerid'];
     echo $_POST['partnerid'];
     echo "<br>",$_POST['sdate'], " - ",$_POST['edate'] ;
-    
+
 }
 $CoID->close();
