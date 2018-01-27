@@ -30,13 +30,13 @@ if (isset($_POST['sourceid'])) {
 else {
     // AJAX load of stories detected at partner (PARTNERS section)
     $ttx_id = $_POST['partnerid'];
-    $sql = "SELECT source_title,source_partner FROM teletrax_hits WHERE tt_detection_start >= '".$sdate."' AND tt_detection_start < '".$edate."'  AND source_id <> '-1' and tt_partner = '".$ttx_id."' group by source_id order by source_partner asc ";
+    $sql = "SELECT source_title,source_partner, source_date FROM teletrax_hits WHERE tt_detection_start >= '".$sdate."' AND tt_detection_start < '".$edate."'  AND source_id <> '-1' and tt_partner = '".$ttx_id."' group by source_id order by source_partner asc ";
     //echo $sql;
     $result = $CoID->query($sql) ;
     echo "<h6> Date range : $sdate => $edate ( end date excluded ) </h6>";
     echo "<ol>";
     while ($row  =  $result->fetch_array()) {
-        echo "<li style='color:#336699; '><strong>",$row['source_partner']," : ",$row['source_title'],"</strong></li>" ;
+        echo "<li style='color:#336699; '><strong>",$row['source_partner']," : ",$row['source_title']," </strong> (",$row['source_date'],")</li>" ;
     }
     echo "</ol>";
 

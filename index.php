@@ -191,12 +191,12 @@ $date_start = date("Y-m-d");
     </div>
     <div class="footer-copyright enex_lightblue">
       <div class="container">
-      V.0.9 / 26.01.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
+      V.1.0 / 27.01.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
       </div>
     </div>
   </footer>
 <!-- Modal Structure -->
-<div id="modal1" class="modal" style="width:40%; padding: 5px;">
+<div id="modal1" class="modal" style="width:46%; padding: 5px;">
     <div class="modal-content">
         <h4>Modal content</h4>
         <p>A bunch of text</p>
