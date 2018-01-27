@@ -344,7 +344,7 @@ $date_start = date("Y-m-d");
         var partnerid = $(this).parent().parent().find('span').text();
         var sdate = $(this).data("sdate") ;
         var edate = $(this).data("edate") ;
-        $('div.modal-content').html('<h6> ENEX items detected on '+partnerid+'</h6>');
+        $('div.modal-content').html('<h5> ENEX items detected on '+partnerid+'</h5>');
         $('.modal_dynamic_content').load("teletrax_pload.php",{ partnerid:partnerid, sdate:sdate,edate:edate });
         $('#modal1').modal('open');
     });
