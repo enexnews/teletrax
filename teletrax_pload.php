@@ -18,7 +18,7 @@ if (isset($_POST['sourceid'])) {
     // AJAX load of Partners detected in story (STORIES section)
     $ttx_id = $_POST['sourceid'];
     $sql = "SELECT distinct tt_partner FROM teletrax_hits WHERE source_id = $ttx_id and (tt_detection_start >= '" . $sdate . " 00:00:00' AND tt_detection_start < '" . $edate . " 23:59:59' ) ORDER BY tt_partner asc ";
-    //echo $sql;
+    echo $sql;
     $result = $CoID->query($sql) ;
     echo "Item has been detected at : <br> Date range : $sdate => $edate ( end date excluded )";
     echo "<ol>";
@@ -30,13 +30,19 @@ if (isset($_POST['sourceid'])) {
 else {
     // AJAX load of stories detected at partner (PARTNERS section)
     $ttx_id = $_POST['partnerid'];
-    $sql = "SELECT source_title,source_partner, source_date FROM teletrax_hits WHERE tt_detection_start >= '".$sdate."' AND tt_detection_start < '".$edate."'  AND source_id <> '-1' and tt_partner = '".$ttx_id."' group by source_id order by source_partner asc ";
-    //echo $sql;
+    $sql = "SELECT source_title,source_partner,tt_asset,source_id, source_date FROM teletrax_hits WHERE tt_detection_start >= '".$sdate."' AND tt_detection_start < '".$edate."'   and tt_partner = '".$ttx_id."' group by tt_asset order by source_partner asc ";
+    echo $sql;
     $result = $CoID->query($sql) ;
     echo "<h6> Date range : $sdate => $edate ( end date excluded ) </h6>";
     echo "<ol>";
     while ($row  =  $result->fetch_array()) {
-        echo "<li style='color:#336699; '><strong>",$row['source_partner']," : ",$row['source_title']," </strong> (",$row['source_date'],")</li>" ;
+        if ($row['source_id'] != '-1') {
+            echo "<li style='color:#336699; '><strong>",$row['source_partner']," : ",$row['source_title']," </strong> (",$row['source_date'],")</li>" ;
+        }
+        else
+        {
+            echo "<li style='color:#336699; '><strong>",$row['source_partner']," : ",$row['tt_asset']," </strong> ( NO META )</li>" ;
+        }
     }
     echo "</ol>";
 
