@@ -49,6 +49,10 @@ $date_start = date("Y-m-d");
 
 </head>
 <body>
+<ul id="dropdown3" class="dropdown-content">
+    <li><a href="index.php?tb=21">Benchmarks</a></li>
+    <li><a href="index.php?tb=22">NO META Detections</a></li>
+</ul>
 <ul id="dropdown1" class="dropdown-content">
     <li><a href="index.php?tb=18">DAILY</a></li>
     <li><a href="index.php?tb=2">MONTHLY</a></li>
@@ -77,6 +81,7 @@ $date_start = date("Y-m-d");
       <ul class="right hide-on-med-and-down">
 
         <li><a href="index.php">Latest Hits</a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown3">Special Reports<i class="material-icons right">arrow_drop_down</i></a></li>
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Top Partners Usage<i class="material-icons right">arrow_drop_down</i></a></li>
         <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Top Stories Hit<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
@@ -139,6 +144,10 @@ $date_start = date("Y-m-d");
             case 18  : ttx_top_partners($p_date,'yesterday'); break;
             case 19  : ttx_top_stories_month($p_date,'anyday','',150); break;
             case 20  : ttx_top_partners($p_date,'anyday'); break ;
+            case 21  : ttx_benchmark_list($p_date); break ;
+            case 22  : ttx_nometa($p_date); break ;
+            case 29  : ttx_benchmark_calc($p_date); break ;
+
             default :
                 ttx_latest() ; break;
         }
