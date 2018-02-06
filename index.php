@@ -29,6 +29,7 @@ $pagetitle[17] = 'TOP Stories Yesterday ('. date('l, d F Y',strtotime("-1 days",
 $pagetitle[18] = 'TOP Partners (Usage of ENEX items) Yesterday ('. date('l, d F Y',strtotime("-1 days",strtotime($today))).")" ;
 $pagetitle[19] = 'TOP Stories <strong>'. date('l, d F Y',strtotime("0 days",strtotime($p_date)))."</strong>" ;
 $pagetitle[20] = 'TOP Partners <strong>'. date('l, d F Y',strtotime("0 days",strtotime($p_date)))."</strong>" ;
+$pagetitle[22] = 'NO META DATA DETECTIONS ';
 $pagetitle[29] = 'Date Benchmark ';
 
 $date_start = date("Y-m-d");

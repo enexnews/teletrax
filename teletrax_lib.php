@@ -228,7 +228,7 @@ function ttx_nometa($bench_date) {
                 <td><?php echo $row['tt_detection_start'] ;?></td>
                 <td><?php echo $row['tt_partner'] ;?></td>
                 <td><?php echo substr($row['tt_duration'],3); ?></td>
-                <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,45); ?>...</a></td>
+                <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,50); ?>...</a></td>
                 <td><?php echo $row['source_partner']; ?></td>
                 <td><strong><?php echo $row['source_title']; ?></strong></td>
             </tr>
