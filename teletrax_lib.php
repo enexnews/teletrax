@@ -184,6 +184,13 @@ function ttx_benchmark_calc($bench_date) {
     $row = $query->fetch_array();
     $bench['detections'] = $row['nritems'];
 
+    // $sql = "delete from teletrax_benchmark where tt_bench_date='".$bench_date."'";
+    $query = $CoID->query($sql);
+    $sql = "insert into teletrax_benchmark (tt_bench_date,tt_bench_published,tt_bench_watermarked,tt_bench_detections) values ('".$bench_date."','".$bench['published']."','".$bench['watermarked']."','".$bench['detections']."') 
+    on duplicate key update tt_bench_published='".$bench['published']."',tt_bench_watermarked='".$bench['watermarked']."',tt_bench_detections='".$bench['detections']."' ";
+    //echo $sql;
+    $query = $CoID->query($sql);
+
     ?>
     <div class="center">
         <div align='center'> <button class="datepickerbench waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
@@ -195,6 +202,15 @@ function ttx_benchmark_calc($bench_date) {
         <div class="card-panel red lighten-4 left"><h5>Detections</h5><br><h4><?php echo $bench['detections']; ?></h4></div>
     </div>
     <div class='clearfix'></div>
+    <div class="center">
+        <?php
+        $sql = "SELECT * from teletrax_benchmark where tt_bench_date < '$bench_date' order by tt_bench_date desc ";
+        $query = $CoID->query($sql);
+        while ( $row = $query->fetch_array()) {
+            echo ctx_real_datestr($row['tt_bench_date'])," => [",$row['tt_bench_published'],"] [",$row['tt_bench_watermarked'],"] [",$row['tt_bench_detections'],"] <br>" ;
+        }
+        ?>
+    </div>
     <?php
     $CoID->close();
 }
