@@ -187,12 +187,12 @@ function ttx_benchmark_calc($bench_date) {
     ?>
     <div class="center">
         <div align='center'> <button class="datepickerbench waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
-        <h4><?php echo ctx_real_datestr($bench_date); ?></h4>
+        <h5><?php echo ctx_real_datestr($bench_date); ?></h5>
     </div>
     <div class="center" style="display: table;  margin: auto;">
-        <div class="card-panel teal lighten-4 left"><h4>Published</h4><br> <h3><?php echo $bench['published']; ?></h3></div>
-        <div class="card-panel blue lighten-4 left"><h4>Watermarked</h4><br><h3><?php echo $bench['watermarked']; ?></h3></div>
-        <div class="card-panel red lighten-4 left"><h4>Detections</h4><br><h3><?php echo $bench['detections']; ?></h3></div>
+        <div class="card-panel teal lighten-4 left"><h5>Published</h5><br> <h4><?php echo $bench['published']; ?></h4></div>
+        <div class="card-panel blue lighten-4 left"><h5>Watermarked</h5><br><h4><?php echo $bench['watermarked']; ?></h4></div>
+        <div class="card-panel red lighten-4 left"><h5>Detections</h5><br><h4><?php echo $bench['detections']; ?></h4></div>
     </div>
     <div class='clearfix'></div>
     <?php
