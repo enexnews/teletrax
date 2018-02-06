@@ -197,20 +197,22 @@ function ttx_benchmark_calc($bench_date) {
         <h5><?php echo ctx_real_datestr($bench_date); ?></h5>
     </div>
     <div class="center" style="display: table;  margin: auto;">
-        <div class="card-panel teal lighten-4 left"><h5>Published</h5><br> <h4><?php echo $bench['published']; ?></h4></div>
-        <div class="card-panel blue lighten-4 left"><h5>Watermarked</h5><br><h4><?php echo $bench['watermarked']; ?></h4></div>
-        <div class="card-panel red lighten-4 left"><h5>Detections</h5><br><h4><?php echo $bench['detections']; ?></h4></div>
+        <div class="card-panel teal lighten-2 left"><h5>Published</h5><br> <h4><?php echo $bench['published']; ?></h4></div>
+        <div class="card-panel blue accent-2 left"><h5>Watermarked</h5><br><h4><?php echo $bench['watermarked']; ?></h4></div>
+        <div class="card-panel red lighten-3 left"><h5>Detections</h5><br><h4><?php echo $bench['detections']; ?></h4></div>
     </div>
     <div class='clearfix'></div>
+    <h5 class="center">Previous days </h5>
     <div class="center">
         <?php
-        $sql = "SELECT * from teletrax_benchmark where tt_bench_date < '$bench_date' order by tt_bench_date desc ";
+        $sql = "SELECT * from teletrax_benchmark where tt_bench_date < '$bench_date' order by tt_bench_date desc limit 3 ";
         $query = $CoID->query($sql);
         while ( $row = $query->fetch_array()) {
             echo ctx_real_datestr($row['tt_bench_date'])," => [",$row['tt_bench_published'],"] [",$row['tt_bench_watermarked'],"] [",$row['tt_bench_detections'],"] <br>" ;
         }
         ?>
     </div>
+    <div class="center" style="display: table;  margin: auto;" ><canvas id="myChart" width="1100" height="450"></canvas></div>
     <?php
     $CoID->close();
 }

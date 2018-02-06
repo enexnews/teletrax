@@ -235,58 +235,59 @@ $date_start = date("Y-m-d");
 <script>
     var ctx = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
-        type: 'horizontalBar',
+        type: 'bar',
         data: {
-
             <?php
             require('../fact15/fact_config.php');
             $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
             $CoID->select_db($config['dbname']);
-            $bench_start_date = date('Y-m-d',strtotime("-7 days",strtotime($today))) ;
-            $bench_end_date = date('Y-m-d') ;
-            $sql = "SELECT tt_partner, COUNT(DISTINCT(tt_asset)) AS storycount,COUNT(tt_asset) AS hitcount FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date."' AND tt_detection_start < '".$bench_end_date."' 
-            GROUP BY tt_partner ORDER BY storycount DESC limit 6";
+            $bench_start_date = date('Y-m-d',strtotime("-8 days",strtotime($p_date))) ;
+            $bench_end_date = $p_date ;//date('Y-m-d') ;
+            $sql = "SELECT * FROM teletrax_benchmark WHERE tt_bench_date >= '".$bench_start_date."' and tt_bench_date <= '".$bench_end_date."' ORDER BY tt_bench_date";
             // echo $sql;
             $query = $CoID->query($sql);
             $glabels = "";
             $growvalues = "";
             while ( $row = $query->fetch_array()) {
-                $glabels.= '"'.$row['tt_partner'].'",';
-                $growvalues.= ''.$row['storycount'].',';
+                $glabels.= '"'.$row['tt_bench_date'].'",';
+                $gpublished.= ''.$row['tt_bench_published'].',';
+                $gwatermarked.= ''.$row['tt_bench_watermarked'].',';
+                $gdetections.= ''.$row['tt_bench_detections'].',';
             }
             $CoID->close();
             ?>
             labels: [<?php echo $glabels;?> ],
-            //["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            datasets: [{
-                label: 'Top Partners Usage Last Week',
-                //data: [12, 19, 3, 5, 2, 3],
-                data: [<?php echo $growvalues ;?>],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
+                datasets: [{
+                    label: 'Published',
+                    backgroundColor: '#26a69a',
+                    data: [<?php echo $gpublished ;?>]
+                },
+                {
+                    label: 'Watermarked',
+                    backgroundColor: '#448aff',
+                    data: [<?php echo $gwatermarked ;?>]
+                },
+                {
+                    label: 'Detections',
+                    backgroundColor: '#e57373',
+                    data: [<?php echo $gdetections ;?>]
+                }]
+        }, options: {
+            title:{
+                display:true,
+                text:"Teletrax Benchmarked"
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            responsive: false,
             scales: {
+                xAxes: [{
+                    stacked: false,
+                }],
                 yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
+                    stacked: false,
                 }]
             }
         }
