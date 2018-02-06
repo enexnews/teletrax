@@ -29,6 +29,7 @@ $pagetitle[17] = 'TOP Stories Yesterday ('. date('l, d F Y',strtotime("-1 days",
 $pagetitle[18] = 'TOP Partners (Usage of ENEX items) Yesterday ('. date('l, d F Y',strtotime("-1 days",strtotime($today))).")" ;
 $pagetitle[19] = 'TOP Stories <strong>'. date('l, d F Y',strtotime("0 days",strtotime($p_date)))."</strong>" ;
 $pagetitle[20] = 'TOP Partners <strong>'. date('l, d F Y',strtotime("0 days",strtotime($p_date)))."</strong>" ;
+$pagetitle[29] = 'Date Benchmark ';
 
 $date_start = date("Y-m-d");
 ?>
@@ -50,7 +51,7 @@ $date_start = date("Y-m-d");
 </head>
 <body>
 <ul id="dropdown3" class="dropdown-content">
-    <li><a href="index.php?tb=21">Benchmarks</a></li>
+    <li><a href="index.php?tb=29">Benchmarks</a></li>
     <li><a href="index.php?tb=22">NO META Detections</a></li>
 </ul>
 <ul id="dropdown1" class="dropdown-content">
@@ -87,6 +88,9 @@ $date_start = date("Y-m-d");
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
+          <li><a style="color:#336699;">REPORTS</a></li>
+          <li><a href="index.php?tb=29">BENCHMARK</a></li>
+          <li class="divider"></li>
           <li><a style="color:#336699;">PARTNERS</a></li>
           <li class="divider"></li>
           <li><a href="index.php?tb=18">DAILY</a></li>
@@ -200,7 +204,7 @@ $date_start = date("Y-m-d");
     </div>
     <div class="footer-copyright enex_lightblue">
       <div class="container">
-      V.1.0 / 27.01.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
+      V.1.1 / 06.02.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
       </div>
     </div>
   </footer>
@@ -305,6 +309,21 @@ $date_start = date("Y-m-d");
         closeOnSelect: false // Close upon selecting a date,
     }).css('cursor', 'pointer');
 
+    $('.datepickerbench').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        formatSubmit: 'yyyy-mm-dd',
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        onSet: function( event ) {
+            if ( event.select ) {
+                //alert('TEST'+ this.get( 'select', 'yyyy-mm-dd' ));
+                document.location='index.php?tb=29&dt='+this.get( 'select', 'yyyy-mm-dd' )+'';
+            }
+        },
+        closeOnSelect: false // Close upon selecting a date,
+    }).css('cursor', 'pointer');
     $('.datepickerpartners').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15, // Creates a dropdown of 15 years to control year,

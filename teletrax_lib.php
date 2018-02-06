@@ -16,6 +16,14 @@ function killsession() {
     }
     session_destroy();
 }
+/*****************************************************************/
+function ctx_real_datestr($param_date)
+// This function creates a natural format of a date in YYYY-MM-DD - format
+{
+    $real_date_string = date('l, d F Y',(strtotime(($param_date)))) ;
+
+    return $real_date_string ;
+}
 //********************************************
 function ttx_chart() {
     ?>
@@ -150,6 +158,90 @@ function ttx_item_hits($ttx_id, $bench_start_date,$bench_end_date) {
     $CoID->close();
 }
 //********************************************
+function ttx_benchmark_calc($bench_date) {
+    // added 6.2.2018
+    require('../fact15/fact_config.php');
+    $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
+    $CoID->select_db($config['dbname']);
+    if ($bench_date == $today) { $bench_date = date('Y-m-d', strtotime('-1 day'));}
+    $bench = array();
+    // cal all
+    $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$bench_date' ";
+    //echo $sql;
+    $query = $CoID->query($sql);
+    $row = $query->fetch_array();
+    $bench['published'] = $row['nritems'];
+
+    $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$bench_date' and story_teletrax_watermark = 1 ";
+    //echo $sql;
+    $query = $CoID->query($sql);
+    $row = $query->fetch_array();
+    $bench['watermarked'] = $row['nritems'];
+
+    $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
+    //echo $sql;
+    $query = $CoID->query($sql);
+    $row = $query->fetch_array();
+    $bench['detections'] = $row['nritems'];
+
+    ?>
+    <div class="center">
+        <div align='center'> <button class="datepickerbench waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
+        <h4><?php echo ctx_real_datestr($bench_date); ?></h4>
+    </div>
+    <div class="center" style="margin:auto; width:100%;margin-left:28%;">
+        <div class="card-panel teal lighten-4 left"><h4>Published</h4><br> <h3><?php echo $bench['published']; ?></h3></div>
+        <div class="card-panel blue lighten-4 left"><h4>Watermarked</h4><br><h3><?php echo $bench['watermarked']; ?></h3></div>
+        <div class="card-panel red lighten-4 left"><h4>Detections</h4><br><h3><?php echo $bench['detections']; ?></h3></div>
+    </div>
+    <div class='clearfix'></div>
+    <?php
+    $CoID->close();
+}
+//********************************************
+function ttx_nometa($bench_date) {
+    // added 6.2.2018
+    require('../fact15/fact_config.php');
+    $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
+    $CoID->select_db($config['dbname']);
+    $sqlpan1 = "SELECT * FROM teletrax_hits where source_id = '-1' group by tt_asset ORDER BY tt_detection_start desc limit 60 ";
+    ?>
+    <table class='display striped' id='ttdetails' style='font-size:80%;'>
+        <thead>
+        <tr>
+            <th>Hit Time</th><th>Partner</th><th>Duration</th><th>Asset</th><th>Source</th><th>Story</th>
+        </tr>
+        </thead> <tbody>
+        <?php
+        //echo $sqlpan1 ;
+        $query = $CoID->query($sqlpan1);
+        while ( $row = $query->fetch_array()) {
+            if ($row['source_id']!= '-1') {
+                $sqlsub = "select * from pex_story where story_step_id = '".$row['source_id']."'";
+                $subquery = $CoID->query($sqlsub) ;
+                if ($subrow =$subquery->fetch_array()) {$mstorydate = $subrow['storydate'];} else { $mstorydate = 'NO META REF!'; }
+            }
+            else { $mstorydate = 'NO META REF';}
+
+            ?>
+            <tr>
+                <td><?php echo $row['tt_detection_start'] ;?></td>                
+                <td><?php echo $row['tt_partner'] ;?></td>
+                <td><?php echo substr($row['tt_duration'],3); ?></td>
+                <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,45); ?>...</a></td>
+                <td><?php echo $row['source_partner']; ?></td>
+                <td><strong><?php echo $row['source_title']; ?></strong></td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+    <?php
+
+    $CoID->close();
+}
+//**********************************************
 function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
     require('../fact15/fact_config.php');
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
@@ -500,3 +592,4 @@ function fact15_teletrax($fact_id, $p_date) {
     <?php
     $CoID->close();
 }
+
