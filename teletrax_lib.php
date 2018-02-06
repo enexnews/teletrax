@@ -189,7 +189,7 @@ function ttx_benchmark_calc($bench_date) {
         <div align='center'> <button class="datepickerbench waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
         <h4><?php echo ctx_real_datestr($bench_date); ?></h4>
     </div>
-    <div class="center" style="margin:auto; width:100%;margin-left:28%;">
+    <div class="center" style="display: table;  margin: auto;">
         <div class="card-panel teal lighten-4 left"><h4>Published</h4><br> <h3><?php echo $bench['published']; ?></h3></div>
         <div class="card-panel blue lighten-4 left"><h4>Watermarked</h4><br><h3><?php echo $bench['watermarked']; ?></h3></div>
         <div class="card-panel red lighten-4 left"><h4>Detections</h4><br><h3><?php echo $bench['detections']; ?></h3></div>
@@ -225,7 +225,7 @@ function ttx_nometa($bench_date) {
 
             ?>
             <tr>
-                <td><?php echo $row['tt_detection_start'] ;?></td>                
+                <td><?php echo $row['tt_detection_start'] ;?></td>
                 <td><?php echo $row['tt_partner'] ;?></td>
                 <td><?php echo substr($row['tt_duration'],3); ?></td>
                 <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,45); ?>...</a></td>
