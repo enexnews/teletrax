@@ -197,9 +197,9 @@ function ttx_benchmark_calc($bench_date) {
         <h5><?php echo ctx_real_datestr($bench_date); ?></h5>
     </div>
     <div class="center" style="display: table;  margin: auto;">
-        <div class="card-panel teal lighten-2 left"><h5>Published</h5><br> <h4><?php echo $bench['published']; ?></h4></div>
-        <div class="card-panel blue accent-2 left"><h5>Watermarked</h5><br><h4><?php echo $bench['watermarked']; ?></h4></div>
-        <div class="card-panel red lighten-3 left"><h5>Detections</h5><br><h4><?php echo $bench['detections']; ?></h4></div>
+        <div class="card-panel teal lighten-2 left"><h5 class="text-lighten-1">Published</h5><br> <h4 class="white-text"><?php echo $bench['published']; ?></h4></div>
+        <div class="card-panel blue accent-2 left"><h5 class="text-lighten-1">Watermarked</h5><br><h4 class="white-text"><?php echo $bench['watermarked']; ?></h4></div>
+        <div class="card-panel red lighten-1 left"><h5 class="text-lighten-1">Detections</h5><br><h4 class="white-text"><?php echo $bench['detections']; ?></h4></div>
     </div>
     <div class='clearfix'></div>
     <h5 class="center">Previous days </h5>
