@@ -234,28 +234,28 @@ $date_start = date("Y-m-d");
   <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
 <script>
     var ctx = document.getElementById("myChart");
+    <?php
+    require('../fact15/fact_config.php');
+    $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
+    $CoID->select_db($config['dbname']);
+    $bench_start_date = date('Y-m-d',strtotime("-8 days",strtotime($p_date))) ;
+    $bench_end_date = $p_date ;//date('Y-m-d') ;
+    $sql = "SELECT * FROM teletrax_benchmark WHERE tt_bench_date >= '".$bench_start_date."' and tt_bench_date <= '".$bench_end_date."' ORDER BY tt_bench_date";
+    // echo $sql;
+    $query = $CoID->query($sql);
+    $glabels = "";
+    $growvalues = "";
+    while ( $row = $query->fetch_array()) {
+        $glabels.= '"'.$row['tt_bench_date'].'",';
+        $gpublished.= ''.$row['tt_bench_published'].',';
+        $gwatermarked.= ''.$row['tt_bench_watermarked'].',';
+        $gdetections.= ''.$row['tt_bench_detections'].',';
+    }
+    $CoID->close();
+    ?>
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            <?php
-            require('../fact15/fact_config.php');
-            $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
-            $CoID->select_db($config['dbname']);
-            $bench_start_date = date('Y-m-d',strtotime("-8 days",strtotime($p_date))) ;
-            $bench_end_date = $p_date ;//date('Y-m-d') ;
-            $sql = "SELECT * FROM teletrax_benchmark WHERE tt_bench_date >= '".$bench_start_date."' and tt_bench_date <= '".$bench_end_date."' ORDER BY tt_bench_date";
-            // echo $sql;
-            $query = $CoID->query($sql);
-            $glabels = "";
-            $growvalues = "";
-            while ( $row = $query->fetch_array()) {
-                $glabels.= '"'.$row['tt_bench_date'].'",';
-                $gpublished.= ''.$row['tt_bench_published'].',';
-                $gwatermarked.= ''.$row['tt_bench_watermarked'].',';
-                $gdetections.= ''.$row['tt_bench_detections'].',';
-            }
-            $CoID->close();
-            ?>
             labels: [<?php echo $glabels;?> ],
                 datasets: [{
                     label: 'Published',
@@ -292,6 +292,48 @@ $date_start = date("Y-m-d");
             }
         }
     });
+    var ctxline = document.getElementById("myChartline");
+    var myChartline = new Chart(ctxline, {
+        type: 'line',
+        data: {
+            labels: [<?php echo $glabels;?> ],
+            datasets: [{
+                label: 'Published',
+                backgroundColor: '#26a69a',
+                data: [<?php echo $gpublished ;?>]
+            },
+                {
+                    label: 'Watermarked',
+                    backgroundColor: '#448aff',
+                    data: [<?php echo $gwatermarked ;?>]
+                },
+                {
+                    label: 'Detections',
+                    backgroundColor: '#e57373',
+                    data: [<?php echo $gdetections ;?>]
+                }]
+        }, options: {
+            title:{
+                display:true,
+                text:"Teletrax Benchmarked"
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            responsive: false,
+            scales: {
+                xAxes: [{
+                    stacked: false,
+                }],
+                yAxes: [{
+                    stacked: false,
+                }]
+            }
+        }
+    });
+
+
 </script>
 <script>
     $('.modal').modal();

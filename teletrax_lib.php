@@ -213,6 +213,8 @@ function ttx_benchmark_calc($bench_date) {
         ?>
     </div>
     <div class="center" style="display: table;  margin: auto;" ><canvas id="myChart" width="1100" height="450"></canvas></div>
+    <div class="clearfix"></div>
+    <div class="center" style="display: table;  margin: auto;" ><canvas id="myChartline" width="1100" height="450"></canvas></div>
     <?php
     $CoID->close();
 }
