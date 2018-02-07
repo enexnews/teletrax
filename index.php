@@ -251,6 +251,29 @@ $date_start = date("Y-m-d");
         $gwatermarked.= ''.$row['tt_bench_watermarked'].',';
         $gdetections.= ''.$row['tt_bench_detections'].',';
     }
+    $bench_start_date = date('Y-m-d',strtotime("-15 days",strtotime($p_date))) ;
+    $bench_end_date = $p_date ;//date('Y-m-d') ;
+    $sql = "SELECT * FROM teletrax_benchmark WHERE tt_bench_date >= '".$bench_start_date."' and tt_bench_date <= '".$bench_end_date."' ORDER BY tt_bench_date";
+    // echo $sql;
+    $query = $CoID->query($sql);
+    $g2labels = "";
+    $growvalues = "";
+    while ( $row = $query->fetch_array()) {
+        $g2labels.= '"'.$row['tt_bench_date'].'",';
+        $g2published.= ''.$row['tt_bench_published'].',';
+        $g2watermarked.= ''.$row['tt_bench_watermarked'].',';
+        $g2detections.= ''.$row['tt_bench_detections'].',';
+    }
+    $bench_end_date = $p_date ;//date('Y-m-d') ;
+    $sql = "SELECT tt_partner, COUNT(DISTINCT tt_asset) AS nitems FROM teletrax_hits WHERE source_date = '".$p_date."' AND source_id <> 1 GROUP BY tt_partner ORDER BY tt_partner";
+    // echo $sql;
+    $query = $CoID->query($sql);
+    $g3labels = "";
+    $growvalues = "";
+    while ( $row = $query->fetch_array()) {
+        $g3labels.= '"'.$row['tt_partner'].'",';
+        $g3detections.= ''.$row['nitems'].',';
+    }
     $CoID->close();
     ?>
     var myChart = new Chart(ctx, {
@@ -296,21 +319,52 @@ $date_start = date("Y-m-d");
     var myChartline = new Chart(ctxline, {
         type: 'line',
         data: {
-            labels: [<?php echo $glabels;?> ],
+            labels: [<?php echo $g2labels;?> ],
             datasets: [{
                 label: 'Published',
                 borderColor: '#26a69a',
-                data: [<?php echo $gpublished ;?>]
+                data: [<?php echo $g2published ;?>]
             },
                 {
                     label: 'Watermarked',
                     borderColor: '#448aff',
-                    data: [<?php echo $gwatermarked ;?>]
+                    data: [<?php echo $g2watermarked ;?>]
                 },
                 {
                     label: 'Detections',
                     borderColor: '#e57373',
-                    data: [<?php echo $gdetections ;?>]
+                    data: [<?php echo $g2detections ;?>]
+                }]
+        }, options: {
+            title:{
+                display:true,
+                text:"Teletrax Benchmarked"
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            responsive: false,
+            scales: {
+                xAxes: [{
+                    stacked: false,
+                }],
+                yAxes: [{
+                    stacked: false,
+                }]
+            }
+        }
+    });
+    var ctxbar = document.getElementById("myChartcake");
+    var myChartcake = new Chart(ctxbar, {
+        type: 'bar',
+        data: {
+            labels: [<?php echo $g3labels;?> ],
+            datasets: [
+                {
+                    label: 'Detections',
+                    borderColor: '#e57373',
+                    data: [<?php echo $g3detections ;?>]
                 }]
         }, options: {
             title:{
