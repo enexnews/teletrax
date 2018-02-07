@@ -299,17 +299,17 @@ $date_start = date("Y-m-d");
             labels: [<?php echo $glabels;?> ],
             datasets: [{
                 label: 'Published',
-                backgroundColor: '#26a69a',
+                borderColor: '#26a69a',
                 data: [<?php echo $gpublished ;?>]
             },
                 {
                     label: 'Watermarked',
-                    backgroundColor: '#448aff',
+                    borderColor: '#448aff',
                     data: [<?php echo $gwatermarked ;?>]
                 },
                 {
                     label: 'Detections',
-                    backgroundColor: '#e57373',
+                    borderColor: '#e57373',
                     data: [<?php echo $gdetections ;?>]
                 }]
         }, options: {
