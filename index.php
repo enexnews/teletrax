@@ -385,6 +385,9 @@ $date_start = date("Y-m-d");
                 }],
                 yAxes: [{
                     stacked: false,
+                    ticks: {
+                        beginAtZero: true
+                    }
                 }]
             }
         }
