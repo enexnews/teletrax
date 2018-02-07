@@ -369,7 +369,7 @@ $date_start = date("Y-m-d");
         }, options: {
             title:{
                 display:true,
-                text:("Nr of stories detected per station <?php echo date('l, d F Y',(strtotime(($p_date)))); ?>"),
+                text:("Nr of stories published on <?php echo date('l, d F Y',(strtotime(($p_date)))); ?> detected per station "),
             },
             tooltips: {
                 mode: 'index',
