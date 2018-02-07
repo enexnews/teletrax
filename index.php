@@ -338,7 +338,7 @@ $date_start = date("Y-m-d");
         }, options: {
             title:{
                 display:true,
-                text:"Teletrax Benchmarked"
+                text:"Teletrax Benchmarked last 2 weeks"
             },
             tooltips: {
                 mode: 'index',
@@ -362,23 +362,26 @@ $date_start = date("Y-m-d");
             labels: [<?php echo $g3labels;?> ],
             datasets: [
                 {
-                    label: 'Detections',
-                    borderColor: '#e57373',
+                    label: 'Detections by Partner',
+                    backgroundColor: '#e57373',
                     data: [<?php echo $g3detections ;?>]
                 }]
         }, options: {
             title:{
                 display:true,
-                text:"Teletrax Benchmarked"
+                text:("Nr of stories detected per station <?php echo date('l, d F Y',(strtotime(($p_date)))); ?>"),
             },
             tooltips: {
                 mode: 'index',
                 intersect: false
             },
-            responsive: false,
+            responsive: true,
             scales: {
                 xAxes: [{
                     stacked: false,
+                    ticks: {
+                        autoSkip: false
+                    }
                 }],
                 yAxes: [{
                     stacked: false,
