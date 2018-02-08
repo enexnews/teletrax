@@ -216,8 +216,41 @@ function ttx_benchmark_calc($bench_date) {
     <div class="clearfix"></div>
     <div class="center" style="display: table;  margin: auto;" ><canvas id="myChartline" width="1100" height="450"></canvas></div>
     <div class="center" style="display: table;  margin: auto;" ><canvas id="myChartcake" width="1100" height="450"></canvas></div>
+    <table class='display striped' id='ttdetails' style='font-size:80%;'>
+    <thead>
+    <tr>
+        <th>Part.</th><th>Hits</th><th>Story</th><th>Source Date</th><th>Asset</th><th>Source</th><th>STEP ID</th>
+    </tr>
+    </thead> <tbody>
+    <?php
+    $tomorrow = date('Y-m-d',strtotime("+1 days",strtotime($bench_date))) ;
+    $sql = "SELECT *,source_title,COUNT(DISTINCT(tt_partner)) AS topstation, COUNT(DISTINCT tt_asset) as storyhits, items.storyrecnr FROM teletrax_hits,pex_story items WHERE tt_detection_start >= '".$bench_date." 00:00:00' AND 
+                            tt_detection_start < '".$tomorrow." 23:59:59'  AND source_id <> '-1' and source_date ='".$bench_date."' and source_id = items.story_step_id and items.storyoutlook_status='AVAILABLE' and items.story_teletrax=1 group by tt_asset ORDER BY topstation DESC";
+
+    $query = $CoID->query($sql);
+    while ( $row = $query->fetch_array()) {
+
+        ?>
+        <tr>
+            <td><?php echo $row['topstation']; ?></td>
+            <td><?php echo $row['storyhits']; ?></td>
+            <td class="table_sourcetitle"><strong><a href='https://enex.lu/members/dopedetail/<?php echo $row['storyrecnr']; ?>' target='_blank'><?php echo $row['source_title']; ?></strong></a></strong>
+                <a style="cursor: pointer;" class="modaltrig tooltipped" style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['topstation']; ?> Partners detected!' data-sdate="<?php echo $bench_date; ?>" data-edate="<?php echo $bench_date; ?>" ><i class="material-icons">announcement</i></a></td>
+            <td class="table_sourcedate"><?php echo $row['source_date']; ?></td>
+            <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
+            <td><?php echo $row['source_partner']; ?></td>
+            <td class="table_sourceid"><a href='index.php?tb=14&id=<?php echo $row['source_id']; ?>&dts=<?php echo $bench_date; ?>&dte=<?php echo $bench_date; ?>'><span><?php echo $row['source_id']; ?></span></a>
+            </td>
+        </tr>
+
+        <?php
+    }
+    ?>
+    </tbody>
+    </table>
     <?php
     $CoID->close();
+
 }
 //********************************************
 function ttx_nometa($bench_date) {
