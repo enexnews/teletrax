@@ -352,7 +352,7 @@ $date_start = date("Y-m-d");
         }, options: {
             title:{
                 display:true,
-                text:"Teletrax Benchmarked last 2 weeks"
+                text:"Benchmark history last 2 weeks"
             },
             tooltips: {
                 mode: 'index',

@@ -229,6 +229,7 @@ function ttx_benchmark_calc($bench_date) {
     <div class="clearfix"></div>
     <div class="center" style="display: table;  margin: auto;" ><canvas id="myChartline" width="1100" height="450"></canvas></div>
     <div class="center" style="display: table;  margin: auto;" ><canvas id="myChartcake" width="1100" height="450"></canvas></div>
+    <div class="center"><h5 >Detected stories published on <?php echo ctx_real_datestr($bench_date); ?></h5></div>
     <table class='display striped' id='ttdetails' style='font-size:80%;'>
     <thead>
     <tr>
