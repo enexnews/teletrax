@@ -186,7 +186,9 @@ function ttx_benchmark_calc($bench_date) {
 
     //$sql = "SELECT count(*) as nritems FROM pex_story where storyoutlook_status <>'AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
     $bench['nometa'] = 0;
-    $sql = "SELECT count(*) as nritems FROM teletrax_hits where source_id = '-1' and tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59' group by tt_asset";
+    //$sql = "SELECT count() as nritems FROM teletrax_hits where source_id = '-1' and tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59' group by tt_asset";
+    $sql= "SELECT COUNT(DISTINCT(tt_asset)) FROM teletrax_hits WHERE source_id = '-1' AND tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59'";
+    // SELECT COUNT(DISTINCT(tt_asset)) FROM teletrax_hits WHERE source_id = '-1' AND tt_detection_start > "2018-02-07"
     //echo $sql;
     $query = $CoID->query($sql);
     $row = $query->fetch_array();
