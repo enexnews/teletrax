@@ -184,10 +184,22 @@ function ttx_benchmark_calc($bench_date) {
     $row = $query->fetch_array();
     $bench['detections'] = $row['nritems'];
 
+    //$sql = "SELECT count(*) as nritems FROM pex_story where storyoutlook_status <>'AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
+    $bench['nometa'] = 0;
+    $sql = "SELECT count(*) as nritems FROM teletrax_hits where source_id = '-1' and tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59' group by tt_asset";
+    //echo $sql;
+    $query = $CoID->query($sql);
+    $row = $query->fetch_array();
+    $bench['nometa'] = $row['nritems'];
+    $sql = "SELECT count(*) as nritems FROM pex_story where storyoutlook_status <>'AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
+    $query = $CoID->query($sql);
+    $row = $query->fetch_array();
+    $bench['nometa'] = $bench['nometa']+$row['nritems'];
+
     // $sql = "delete from teletrax_benchmark where tt_bench_date='".$bench_date."'";
     $query = $CoID->query($sql);
-    $sql = "insert into teletrax_benchmark (tt_bench_date,tt_bench_published,tt_bench_watermarked,tt_bench_detections) values ('".$bench_date."','".$bench['published']."','".$bench['watermarked']."','".$bench['detections']."') 
-    on duplicate key update tt_bench_published='".$bench['published']."',tt_bench_watermarked='".$bench['watermarked']."',tt_bench_detections='".$bench['detections']."' ";
+    $sql = "insert into teletrax_benchmark (tt_bench_date,tt_bench_published,tt_bench_watermarked,tt_bench_detections,tt_bench_nometa) values ('".$bench_date."','".$bench['published']."','".$bench['watermarked']."','".$bench['detections']."','".$bench['nometa']."') 
+    on duplicate key update tt_bench_published='".$bench['published']."',tt_bench_watermarked='".$bench['watermarked']."',tt_bench_detections='".$bench['detections']."' ,tt_bench_nometa='".$bench['nometa']."'";
     //echo $sql;
     $query = $CoID->query($sql);
 
@@ -200,6 +212,7 @@ function ttx_benchmark_calc($bench_date) {
         <div class="card-panel teal lighten-2 left"><h5 class="text-lighten-1">Published</h5><br> <h4 class="white-text"><?php echo $bench['published']; ?></h4></div>
         <div class="card-panel blue accent-2 left"><h5 class="text-lighten-1">Watermarked</h5><br><h4 class="white-text"><?php echo $bench['watermarked']; ?></h4></div>
         <div class="card-panel red lighten-1 left"><h5 class="text-lighten-1">Detections</h5><br><h4 class="white-text"><?php echo $bench['detections']; ?></h4></div>
+        <div class="card-panel lime darken-1 left"><h5 class="text-lighten-1">No Meta</h5><br><h4 class="white-text"><?php echo $bench['nometa']; ?></h4></div>
     </div>
     <div class='clearfix'></div>
     <h5 class="center">Previous days </h5>
