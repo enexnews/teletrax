@@ -237,11 +237,12 @@ $date_start = date("Y-m-d");
     <?php
     require('../fact15/fact_config.php');
     $yesterday = date('Y-m-d',strtotime("-1 days",strtotime($p_date))) ;
+    if ($p_date == $today) { $p_date = date('Y-m-d', strtotime('-1 day'));}
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
     $bench_start_date = date('Y-m-d',strtotime("-8 days",strtotime($p_date))) ;
     $bench_end_date = $p_date ;//date('Y-m-d') ;
-    $sql = "SELECT * FROM teletrax_benchmark WHERE tt_bench_date >= '".$bench_start_date."' and tt_bench_date < '".$bench_end_date."' ORDER BY tt_bench_date";
+    $sql = "SELECT * FROM teletrax_benchmark WHERE tt_bench_date >= '".$bench_start_date."' and tt_bench_date <= '".$bench_end_date."' ORDER BY tt_bench_date";
     // echo $sql;
     $query = $CoID->query($sql);
     $glabels = "";
@@ -254,7 +255,7 @@ $date_start = date("Y-m-d");
     }
     $bench_start_date = date('Y-m-d',strtotime("-15 days",strtotime($p_date))) ;
     $bench_end_date = $p_date ;//date('Y-m-d') ;
-    $sql = "SELECT * FROM teletrax_benchmark WHERE tt_bench_date >= '".$bench_start_date."' and tt_bench_date < '".$bench_end_date."' ORDER BY tt_bench_date";
+    $sql = "SELECT * FROM teletrax_benchmark WHERE tt_bench_date >= '".$bench_start_date."' and tt_bench_date <= '".$bench_end_date."' ORDER BY tt_bench_date";
     // echo $sql;
     $query = $CoID->query($sql);
     $g2labels = "";
