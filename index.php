@@ -252,6 +252,7 @@ $date_start = date("Y-m-d");
         $gpublished.= ''.$row['tt_bench_published'].',';
         $gwatermarked.= ''.$row['tt_bench_watermarked'].',';
         $gdetections.= ''.$row['tt_bench_detections'].',';
+        $gnometa.= ''.$row['tt_bench_nometa'].',';
     }
     $bench_start_date = date('Y-m-d',strtotime("-15 days",strtotime($p_date))) ;
     $bench_end_date = $p_date ;//date('Y-m-d') ;
@@ -265,6 +266,7 @@ $date_start = date("Y-m-d");
         $g2published.= ''.$row['tt_bench_published'].',';
         $g2watermarked.= ''.$row['tt_bench_watermarked'].',';
         $g2detections.= ''.$row['tt_bench_detections'].',';
+        $g2nometa.= ''.$row['tt_bench_nometa'].',';
     }
     $bench_end_date = $p_date ;//date('Y-m-d') ;
     $sql = "SELECT tt_partner, COUNT(DISTINCT tt_asset) AS nitems FROM teletrax_hits WHERE source_date = '".$p_date."' AND source_id <> 1 GROUP BY tt_partner ORDER BY tt_partner";
@@ -296,7 +298,12 @@ $date_start = date("Y-m-d");
                     label: 'Detections',
                     backgroundColor: '#e57373',
                     data: [<?php echo $gdetections ;?>]
-                }]
+                },
+                    {
+                        label: 'No Meta',
+                        backgroundColor: '#afb42b',
+                        data: [<?php echo $gnometa ;?>]
+                    }]
         }, options: {
             title:{
                 display:true,
@@ -336,6 +343,11 @@ $date_start = date("Y-m-d");
                     label: 'Detections',
                     borderColor: '#e57373',
                     data: [<?php echo $g2detections ;?>]
+                },
+                {
+                    label: 'No Meta',
+                    borderColor: '#ffee58',
+                    data: [<?php echo $g2nometa ;?>]
                 }]
         }, options: {
             title:{
