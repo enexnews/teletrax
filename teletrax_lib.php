@@ -209,6 +209,7 @@ function ttx_benchmark_calc($bench_date) {
     <div class="center">
         <div align='center'> <button class="datepickerbench waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
         <h5><?php echo ctx_real_datestr($bench_date); ?></h5>
+        <p>( Graphs below: Total nr of published ENEX items, Watermarked published items, Items detected on partner side, Detected non published items without Metadata)</p>
     </div>
     <div class="center" style="display: table;  margin: auto;">
         <div class="card-panel teal lighten-2 left"><h5 class="text-lighten-1">Published</h5><br> <h4 class="white-text"><?php echo $bench['published']; ?></h4></div>
