@@ -273,7 +273,7 @@ $date_start = date("Y-m-d");
         $g2nometa.= ''.$row['tt_bench_nometa'].',';
     }
     $bench_end_date = $p_date ;//date('Y-m-d') ;
-    $sql = "SELECT tt_partner, COUNT(DISTINCT tt_asset) AS nitems FROM teletrax_hits WHERE source_date = '".$p_date."' AND source_id <> 1 GROUP BY tt_partner ORDER BY tt_partner";
+    $sql = "SELECT tt_partner, COUNT(DISTINCT tt_asset) AS nitems,source_region FROM teletrax_hits WHERE source_date = '".$p_date."' AND source_id <> 1 GROUP BY tt_partner ORDER BY tt_partner";
     // echo $sql;
     $query = $CoID->query($sql);
     $g3labels = "";
@@ -281,6 +281,17 @@ $date_start = date("Y-m-d");
     while ( $row = $query->fetch_array()) {
         $g3labels.= '"'.$row['tt_partner'].'",';
         $g3detections.= ''.$row['nitems'].',';
+    }
+    $sql = "SELECT tt_partner, COUNT(DISTINCT tt_asset) AS nitems,source_region FROM teletrax_hits WHERE source_date = '".$p_date."' AND source_id <> 1 GROUP BY source_region ORDER BY tt_partner";
+    // echo $sql;
+    $query = $CoID->query($sql);
+    $g3labels = "";
+    $growvalues = "";
+    $g3region = "";
+    while ( $row = $query->fetch_array()) {
+        $g3labels.= '"'.$row['tt_partner'].'",';
+        $g3detections.= ''.$row['nitems'].',';
+        $g3region .= "['".$row['source_region']."',".$row['nitems']."],";
     }
     $CoID->close();
     ?>
@@ -427,13 +438,7 @@ $date_start = date("Y-m-d");
     function drawRegionsMap() {
         var data = google.visualization.arrayToDataTable([
             ['Country', 'Detections'],
-            ['Germany', 50],
-            ['United States', 30],
-            ['Colombia',10 ],
-            ['Belgium', 23],
-            ['France', 15],
-            ['RU', 8]
-        ]);
+           <?php echo $g3region; ?>);
 
         var options = {};
 
