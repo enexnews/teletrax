@@ -217,6 +217,8 @@ function ttx_benchmark_calc($bench_date) {
         <div class="card-panel red lighten-1 left"><h5 class="text-lighten-1">Detections</h5><br><h4 class="white-text"><?php echo $bench['detections']; ?></h4></div>
         <div class="card-panel lime darken-1 left"><h5 class="text-lighten-1">No Meta</h5><br><h4 class="white-text"><?php echo $bench['nometa']; ?></h4></div>
     </div>
+    <!--Div that will hold the GOOGLE pie chart-->
+    <div id="chart_div"></div>
     <div class='clearfix'></div>
     <h5 class="center">Previous days </h5>
     <div class="center">

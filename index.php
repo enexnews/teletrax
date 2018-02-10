@@ -253,7 +253,11 @@ $date_start = date("Y-m-d");
         $gwatermarked.= ''.$row['tt_bench_watermarked'].',';
         $gdetections.= ''.$row['tt_bench_detections'].',';
         $gnometa.= ''.$row['tt_bench_nometa'].',';
+        $piepublished = $row['tt_bench_published'];
+        $piewatermarked = $row['tt_bench_watermarked'];
+        $piedetections = $row['tt_bench_detections'];
     }
+
     $bench_start_date = date('Y-m-d',strtotime("-15 days",strtotime($p_date))) ;
     $bench_end_date = $p_date ;//date('Y-m-d') ;
     $sql = "SELECT * FROM teletrax_benchmark WHERE tt_bench_date >= '".$bench_start_date."' and tt_bench_date <= '".$bench_end_date."' ORDER BY tt_bench_date";
@@ -408,6 +412,41 @@ $date_start = date("Y-m-d");
     });
 
 
+</script>
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {'packages':['corechart']});
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Type');
+        data.addColumn('number', 'Nr');
+        data.addRows([
+            ['Published', <?php echo $piepublished; ?>],
+            ['Watermarked',<?php echo $piewatermarked; ?>],
+            ['Detections', <?php echo $piedetections; ?>],
+        ]);
+
+        // Set chart options
+        var options = {'title':'Detections Benchmark',
+            'width':500,
+            'height':400};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
 </script>
 <script>
     $('.modal').modal();
