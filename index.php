@@ -437,9 +437,9 @@ $date_start = date("Y-m-d");
 
     function drawRegionsMap() {
         var data = google.visualization.arrayToDataTable([
-            ['Country', 'Detections'],
-           <?php echo $g3region; ?>);
-
+            ['Country', 'Detections'],<?php //echo $g3region; ?>
+        ['United Kingdom',2],['Belgium',12],['Syria',5],['Japan',2],['Yemen',1],['Poland',1],['Spain',3],['France',1],['Netherlands',1],['United States',17],['Colombia',1],['Argentina',3],['Italy',5],['Russia',2],['Germany',1]
+        ]);
         var options = {};
 
         var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
