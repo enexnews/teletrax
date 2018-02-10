@@ -416,6 +416,34 @@ $date_start = date("Y-m-d");
 <!--Load the AJAX API-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+    google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyCeta_k3JEaREePgziyKNhU2bJueLl5a9s'
+    });
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+    function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+            ['Country', 'Detections'],
+            ['Germany', 50],
+            ['United States', 30],
+            ['Colombia',10 ],
+            ['Belgium', 23],
+            ['France', 15],
+            ['RU', 8]
+        ]);
+
+        var options = {};
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+<script type="text/javascript">
 
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages':['corechart']});
@@ -441,7 +469,9 @@ $date_start = date("Y-m-d");
         // Set chart options
         var options = {'title':'Detections Benchmark',
             'width':500,
-            'height':400};
+            'height':400,
+            is3D: true,
+        };
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
