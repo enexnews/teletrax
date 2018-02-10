@@ -282,7 +282,7 @@ $date_start = date("Y-m-d");
         $g3labels.= '"'.$row['tt_partner'].'",';
         $g3detections.= ''.$row['nitems'].',';
     }
-    $sql = "SELECT tt_partner, COUNT(DISTINCT tt_asset) AS nitems,source_region FROM teletrax_hits WHERE source_date = '".$p_date."' AND source_id <> 1 GROUP BY source_region ORDER BY tt_partner";
+    $sql = "SELECT tt_partner, COUNT(DISTINCT tt_asset) AS nitems,tt_region FROM teletrax_hits WHERE tt_detection_start >'".$p_date." 00:00:00' and tt_detection_start <'".$p_date." 23:59:59' GROUP BY tt_region ORDER BY tt_partner";
     // echo $sql;
     $query = $CoID->query($sql);
     $g3labels = "";
@@ -291,7 +291,7 @@ $date_start = date("Y-m-d");
     while ( $row = $query->fetch_array()) {
         $g3labels.= '"'.$row['tt_partner'].'",';
         $g3detections.= ''.$row['nitems'].',';
-        $g3region .= "['".$row['source_region']."',".$row['nitems']."],";
+        $g3region .= "['".$row['tt_region']." (".$row['tt_partner'].")',".$row['nitems']."],";
     }
     $CoID->close();
     ?>
@@ -434,15 +434,25 @@ $date_start = date("Y-m-d");
         'mapsApiKey': 'AIzaSyCeta_k3JEaREePgziyKNhU2bJueLl5a9s'
     });
     google.charts.setOnLoadCallback(drawRegionsMap);
+    google.charts.setOnLoadCallback(drawEuropeMap);
 
     function drawRegionsMap() {
         var data = google.visualization.arrayToDataTable([
-            ['Country', 'Detections'],<?php //echo $g3region; ?>
-        ['United Kingdom',2],['Belgium',12],['Syria',5],['Japan',2],['Yemen',1],['Poland',1],['Spain',3],['France',1],['Netherlands',1],['United States',17],['Colombia',1],['Argentina',3],['Italy',5],['Russia',2],['Germany',1]
+            ['Origin', 'Story Detections'],<?php echo $g3region; ?>
         ]);
         var options = {};
 
         var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+    }
+    function drawEuropeMap() {
+        var data = google.visualization.arrayToDataTable([
+            ['Country', 'Detections'],<?php echo $g3region; ?>
+        ]);
+        var options = {region: '150'};
+
+        var chart = new google.visualization.GeoChart(document.getElementById('europe_div'));
 
         chart.draw(data, options);
     }

@@ -232,9 +232,12 @@ function ttx_benchmark_calc($bench_date) {
     <div class="clearfix"></div>
     <div class="center" style="display: table;  margin: auto;" ><canvas id="myChartline" width="1100" height="450"></canvas></div>
     <div class="center" style="display: table;  margin: auto;" ><canvas id="myChartcake" width="1100" height="450"></canvas></div>
-    <!--Div that will hold the GOOGLE pie chart-->
-    <div class="center" style="display: table;  margin: auto;" id="chart_div"></div>
-    <div class="center" id="regions_div" style="width: 1000px; height: 600px; display: table;  margin: auto;"></div>
+    <!--Div that will hold the GOOGLE pie chart
+    <div class="center" style="display: table;  margin: auto;" id="chart_div"></div>-->
+    <h6 class="center">All detections on <?php echo ctx_real_datestr($bench_date); ?> including NO META (Global)</h6>
+    <div class="center" id="regions_div" style="width: 900px; height: 500px; display: table;  margin: auto;"></div>
+    <h6 class="center">All detections on <?php echo ctx_real_datestr($bench_date); ?> including NO META (Europe)</h6>
+    <div class="center" id="europe_div" style="width: 900px; height: 500px; display: table;  margin: auto;"></div>
     <div class="center"><h5 >Detected stories published on <?php echo ctx_real_datestr($bench_date); ?></h5></div>
     <table class='display striped' id='ttdetails' style='font-size:80%;'>
     <thead>
