@@ -558,7 +558,7 @@ $date_start = date("Y-m-d");
             belowOrigin: true, // Displays dropdown below the button
         }
     );
-    $('a.modaltrig').on('click', function() {
+    $('#ttdetails').on('click','a.modaltrig' , function() {
         var sourceid = $(this).parent().parent().find('span').text();
         var storytitle = $(this).parent().parent().find('.table_sourcetitle').text();
         var storydate = $(this).parent().parent().find('.table_sourcedate').text();
@@ -570,7 +570,7 @@ $date_start = date("Y-m-d");
         $('#modal1').modal('open');
     });
 
-    $('a.partnertrig').on('click', function() {
+    $('#topstories_monthtable').on('click','a.partnertrig' ,function() {
         var partnerid = $(this).parent().parent().find('span').text();
         var sdate = $(this).data("sdate") ;
         var edate = $(this).data("edate") ;
