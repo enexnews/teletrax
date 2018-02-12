@@ -8,6 +8,7 @@
 // created 25.1.2018 updated 27.1.2018 17:58
 //echo $_POST['sourceid'];
 //echo "<br>",$_POST['sdate'], " - ",$_POST['edate'];
+
 require('../fact15/fact_config.php');
 $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
 $CoID->select_db($config['dbname']);
