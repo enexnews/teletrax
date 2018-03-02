@@ -157,54 +157,62 @@ function ttx_item_hits($ttx_id, $bench_start_date,$bench_end_date) {
 
     $CoID->close();
 }
+
 //********************************************
 function ttx_benchmark_calc($bench_date) {
     // added 6.2.2018
     require('../fact15/fact_config.php');
+
+    function ttx_count($subbench_date){
+        require('../fact15/fact_config.php');
+        $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
+        $CoID->select_db($config['dbname']);
+        if ($subbench_date == $today) { $bench_date = date('Y-m-d', strtotime('-1 day'));}
+        $bench = array();
+        // cal all
+        $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$subbench_date' ";
+        //echo $sql;
+        $query = $CoID->query($sql);
+        $row = $query->fetch_array();
+        $bench['published'] = $row['nritems'];
+
+        $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$subbench_date' and story_teletrax_watermark = 1 ";
+        //echo $sql;
+        $query = $CoID->query($sql);
+        $row = $query->fetch_array();
+        $bench['watermarked'] = $row['nritems'];
+
+        $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
+        //echo $sql;
+        $query = $CoID->query($sql);
+        $row = $query->fetch_array();
+        $bench['detections'] = $row['nritems'];
+
+        //$sql = "SELECT count(*) as nritems FROM pex_story where storyoutlook_status <>'AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
+        $bench['nometa'] = 0;
+        //$sql = "SELECT count() as nritems FROM teletrax_hits where source_id = '-1' and tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59' group by tt_asset";
+        $sql= "SELECT COUNT(DISTINCT(tt_asset)) as nritems FROM teletrax_hits WHERE source_id = '-1' AND tt_detection_start >= '".$subbench_date." 00:00:00' AND tt_detection_start < '".$subbench_date." 23:59:59'";
+        // SELECT COUNT(DISTINCT(tt_asset)) FROM teletrax_hits WHERE source_id = '-1' AND tt_detection_start > "2018-02-07"
+        //echo $sql;
+        $query = $CoID->query($sql);
+        $row = $query->fetch_array();
+        $bench['nometa'] = $row['nritems'];
+        $sql = "SELECT count(*) as nritems FROM pex_story where storyoutlook_status <>'AVAILABLE' and storydate = '$subbench_date' and story_teletrax = 1 ";
+        $query = $CoID->query($sql);
+        $row = $query->fetch_array();
+        $bench['nometa'] = $bench['nometa']+$row['nritems'];
+
+        // $sql = "delete from teletrax_benchmark where tt_bench_date='".$bench_date."'";
+        $query = $CoID->query($sql);
+        $sql = "insert into teletrax_benchmark (tt_bench_date,tt_bench_published,tt_bench_watermarked,tt_bench_detections,tt_bench_nometa) values ('".$subbench_date."','".$bench['published']."','".$bench['watermarked']."','".$bench['detections']."','".$bench['nometa']."') 
+    on duplicate key update tt_bench_published='".$bench['published']."',tt_bench_watermarked='".$bench['watermarked']."',tt_bench_detections='".$bench['detections']."' ,tt_bench_nometa='".$bench['nometa']."'";
+        //echo $sql;
+        $query = $CoID->query($sql);
+        $CoID->close();
+    }
+    ttx_count($bench_date);
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
-    if ($bench_date == $today) { $bench_date = date('Y-m-d', strtotime('-1 day'));}
-    $bench = array();
-    // cal all
-    $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$bench_date' ";
-    //echo $sql;
-    $query = $CoID->query($sql);
-    $row = $query->fetch_array();
-    $bench['published'] = $row['nritems'];
-
-    $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$bench_date' and story_teletrax_watermark = 1 ";
-    //echo $sql;
-    $query = $CoID->query($sql);
-    $row = $query->fetch_array();
-    $bench['watermarked'] = $row['nritems'];
-
-    $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
-    //echo $sql;
-    $query = $CoID->query($sql);
-    $row = $query->fetch_array();
-    $bench['detections'] = $row['nritems'];
-
-    //$sql = "SELECT count(*) as nritems FROM pex_story where storyoutlook_status <>'AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
-    $bench['nometa'] = 0;
-    //$sql = "SELECT count() as nritems FROM teletrax_hits where source_id = '-1' and tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59' group by tt_asset";
-    $sql= "SELECT COUNT(DISTINCT(tt_asset)) as nritems FROM teletrax_hits WHERE source_id = '-1' AND tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59'";
-    // SELECT COUNT(DISTINCT(tt_asset)) FROM teletrax_hits WHERE source_id = '-1' AND tt_detection_start > "2018-02-07"
-    //echo $sql;
-    $query = $CoID->query($sql);
-    $row = $query->fetch_array();
-    $bench['nometa'] = $row['nritems'];
-    $sql = "SELECT count(*) as nritems FROM pex_story where storyoutlook_status <>'AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
-    $query = $CoID->query($sql);
-    $row = $query->fetch_array();
-    $bench['nometa'] = $bench['nometa']+$row['nritems'];
-
-    // $sql = "delete from teletrax_benchmark where tt_bench_date='".$bench_date."'";
-    $query = $CoID->query($sql);
-    $sql = "insert into teletrax_benchmark (tt_bench_date,tt_bench_published,tt_bench_watermarked,tt_bench_detections,tt_bench_nometa) values ('".$bench_date."','".$bench['published']."','".$bench['watermarked']."','".$bench['detections']."','".$bench['nometa']."') 
-    on duplicate key update tt_bench_published='".$bench['published']."',tt_bench_watermarked='".$bench['watermarked']."',tt_bench_detections='".$bench['detections']."' ,tt_bench_nometa='".$bench['nometa']."'";
-    //echo $sql;
-    $query = $CoID->query($sql);
-
     ?>
     <div class="center">
         <div align='center'> <button class="datepickerbench waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
