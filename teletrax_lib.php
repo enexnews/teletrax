@@ -211,10 +211,10 @@ function ttx_benchmark_calc($bench_date) {
     }
     if ($bench_date == $today) { $bench_date = date('Y-m-d', strtotime('-1 day'));}
     $bench = ttx_count($bench_date);
-    for ($x = 1; $x <= 3; $x++) {
-        $subbench_date = date('Y-m-d', strtotime(('-'.$x.' day')));
+    for ($x = 1; $x <= 5; $x++) {
+        $subbench_date = date('Y-m-d', strtotime($bench_date. ' -'.$x.' day'));
         $subbench = ttx_count($subbench_date);
-        echo $subbench_date,":",$subbench['detections'],"<br>";
+        // echo $subbench_date,":",$subbench['detections'],"<br>";
     }
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
