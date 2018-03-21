@@ -167,7 +167,6 @@ function ttx_benchmark_calc($bench_date) {
         require('../fact15/fact_config.php');
         $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
         $CoID->select_db($config['dbname']);
-        if ($subbench_date == $today) { $bench_date = date('Y-m-d', strtotime('-1 day'));}
         $bench = array();
         // cal all
         $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$subbench_date' ";
@@ -182,7 +181,7 @@ function ttx_benchmark_calc($bench_date) {
         $row = $query->fetch_array();
         $bench['watermarked'] = $row['nritems'];
 
-        $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
+        $sql = "SELECT count(*) as nritems  FROM pex_story where storyoutlook_status ='AVAILABLE' and storydate = '$subbench_date' and story_teletrax = 1 ";
         //echo $sql;
         $query = $CoID->query($sql);
         $row = $query->fetch_array();
@@ -202,15 +201,21 @@ function ttx_benchmark_calc($bench_date) {
         $row = $query->fetch_array();
         $bench['nometa'] = $bench['nometa']+$row['nritems'];
 
-        // $sql = "delete from teletrax_benchmark where tt_bench_date='".$bench_date."'";
         $query = $CoID->query($sql);
         $sql = "insert into teletrax_benchmark (tt_bench_date,tt_bench_published,tt_bench_watermarked,tt_bench_detections,tt_bench_nometa) values ('".$subbench_date."','".$bench['published']."','".$bench['watermarked']."','".$bench['detections']."','".$bench['nometa']."') 
     on duplicate key update tt_bench_published='".$bench['published']."',tt_bench_watermarked='".$bench['watermarked']."',tt_bench_detections='".$bench['detections']."' ,tt_bench_nometa='".$bench['nometa']."'";
         //echo $sql;
         $query = $CoID->query($sql);
         $CoID->close();
+        return $bench ;
     }
-    ttx_count($bench_date);
+    if ($bench_date == $today) { $bench_date = date('Y-m-d', strtotime('-1 day'));}
+    $bench = ttx_count($bench_date);
+    for ($x = 1; $x <= 3; $x++) {
+        $subbench_date = date('Y-m-d', strtotime(('-'.$x.' day')));
+        $subbench = ttx_count($subbench_date);
+        echo $subbench_date,":",$subbench['detections'],"<br>";
+    }
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
     ?>
