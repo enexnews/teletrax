@@ -234,7 +234,7 @@ function ttx_benchmark_calc($bench_date) {
     <h5 class="center">Previous days </h5>
     <div class="center">
         <?php
-        $sql = "SELECT * from teletrax_benchmark where tt_bench_date < '$bench_date' order by tt_bench_date desc limit 3 ";
+        $sql = "SELECT * from teletrax_benchmark where tt_bench_date < '$bench_date' order by tt_bench_date desc limit 5 ";
         $query = $CoID->query($sql);
         while ( $row = $query->fetch_array()) {
             echo ctx_real_datestr($row['tt_bench_date'])," => [",$row['tt_bench_published'],"] [",$row['tt_bench_watermarked'],"] [",$row['tt_bench_detections'],"] <br>" ;
