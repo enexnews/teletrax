@@ -258,7 +258,7 @@ $date_start = date("Y-m-d");
         $piedetections = $row['tt_bench_detections'];
     }
 
-    $bench_start_date = date('Y-m-d',strtotime("-15 days",strtotime($p_date))) ;
+    $bench_start_date = date('Y-m-d',strtotime("-28 days",strtotime($p_date))) ;
     $bench_end_date = $p_date ;//date('Y-m-d') ;
     $sql = "SELECT * FROM teletrax_benchmark WHERE tt_bench_date >= '".$bench_start_date."' and tt_bench_date <= '".$bench_end_date."' ORDER BY tt_bench_date";
     // echo $sql;
@@ -367,7 +367,7 @@ $date_start = date("Y-m-d");
         }, options: {
             title:{
                 display:true,
-                text:"Benchmark history last 2 weeks"
+                text:"Benchmark history last 4 weeks"
             },
             tooltips: {
                 mode: 'index',
