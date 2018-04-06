@@ -304,12 +304,13 @@ function ttx_nometa_fix($bench_date) {
     <table class='display striped' id='ttdetails' style='font-size:80%;'>
         <thead>
         <tr>
-            <th>Hit Time</th><th>Partner</th><th>Duration</th><th>Asset</th><th>Source</th><th>Story</th>
+            <th>Hit Time</th><th>Partner</th><th>Duration</th><th>Asset</th><th>Source</th><th>Story</th><th></th>
         </tr>
         </thead> <tbody>
         <?php
         //echo $sqlpan1 ;
         $query = $CoID->query($sql);
+        $fixcount = 0;
         while ( $row = $query->fetch_array()) {
             ?>
             <tr>
@@ -319,6 +320,28 @@ function ttx_nometa_fix($bench_date) {
                 <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,50); ?>...</a></td>
                 <td><?php echo $row['source_partner']; ?></td>
                 <td><strong><?php echo $row['source_title']; ?></strong></td>
+                <?PHP
+                $storysql = "select * from pex_story where (story_step_filename = '".$row['tt_asset']."' or story_nlhd_clipname = '".trim($row['tt_asset'])."' or story_step_filename = '".substr($row['tt_asset'],7)."') ";
+                $story_result = $CoID->query($storysql);
+                if($story_result->num_rows > 0) {
+                    $row = $story_result->fetch_object();
+                    $m_step_id = $row->story_step_id ;
+                    $m_storytitle = $row->storytitle;
+                    $m_storydate = $row->storydate;
+                    $m_storysource = $row->storysource;
+                    $m_story_country = $row->story_country;
+                    $sql_change = "UPDATE pex_story SET story_teletrax = 1,story_teletrax_watermark = 1 WHERE story_step_id=".$m_step_id." ";
+                    $sql_change_result = $CoID->query($sql_change);
+                    $sql_change = "UPDATE teletrax_hits SET source_id = '$m_step_id', source_title = '$m_storytitle', source_date = '$m_storydate', source_partner = '$m_storysource',source_region = '$m_story_country'  WHERE  tt_asset ='".$row['tt_asset']."' ";
+                    //echo "<p>",$sql_change,"</p>";
+                    $sql_change_result = $CoID->query($sql_change);
+                    echo "<td>FIXED</td>";
+                    $fixcount++;
+                }
+                else {
+                    echo "<td></td>";
+                }
+                ?>
             </tr>
             <?php
         }
@@ -326,7 +349,8 @@ function ttx_nometa_fix($bench_date) {
         </tbody>
     </table>
     <?php
-    $sql = "update teletrax_benchmark set tt_bench_nometa_fix = '-1' WHERE tt_bench_date = '".$bench_date."'";
+
+    $sql = "update teletrax_benchmark set tt_bench_nometa_fix = '$fixcount' WHERE tt_bench_date = '".$bench_date."' and tt_bench_nometa_fix < '1' ";
     echo $sql;
     $query = $CoID->query($sql);
 
