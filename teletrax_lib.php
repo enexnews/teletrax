@@ -326,6 +326,9 @@ function ttx_nometa_fix($bench_date) {
         </tbody>
     </table>
     <?php
+    $sql = "update teletrax_benchmark set tt_bench_nometa_fix = '-1' WHERE tt_bench_date = '".$bench_date."'";
+    echo $sql;
+    $query = $CoID->query($sql);
 
     $CoID->close();
 }
