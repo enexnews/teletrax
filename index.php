@@ -529,6 +529,22 @@ $date_start = date("Y-m-d");
         },
         closeOnSelect: false // Close upon selecting a date,
     }).css('cursor', 'pointer');
+
+    $('.datepickernometafix').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        formatSubmit: 'yyyy-mm-dd',
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        onSet: function( event ) {
+            if ( event.select ) {
+                document.location='index.php?tb=28&dt='+this.get( 'select', 'yyyy-mm-dd' )+'';
+            }
+        },
+        closeOnSelect: false // Close upon selecting a date,
+    }).css('cursor', 'pointer');
+
     $('.datepickerpartners').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15, // Creates a dropdown of 15 years to control year,

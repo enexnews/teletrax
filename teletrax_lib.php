@@ -293,11 +293,14 @@ function ttx_benchmark_calc($bench_date) {
 function ttx_nometa_fix($bench_date) {
     // added 6.4.2018
     require('../fact15/fact_config.php');
+    //echo $bench_date ;
     if ($bench_date == $today) { $bench_date = date('Y-m-d', strtotime('-1 day'));}
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
     $sql = "SELECT * FROM teletrax_hits WHERE source_id = -1 AND tt_asset <> '' AND tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59'";
+    echo $sql;
     ?>
+    <div align='center'> <button class="datepickernometafix waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
     <table class='display striped' id='ttdetails' style='font-size:80%;'>
         <thead>
         <tr>
