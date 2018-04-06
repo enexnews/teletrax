@@ -298,7 +298,7 @@ function ttx_nometa_fix($bench_date) {
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
     $sql = "SELECT * FROM teletrax_hits WHERE source_id = -1 AND tt_asset <> '' AND tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59'";
-    echo $sql;
+    //echo $sql;
     ?>
     <div align='center'> <button class="datepickernometafix waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
     <h5 align='center'> NO META : <?php echo ctx_real_datestr($bench_date); ?></h5>
@@ -352,7 +352,7 @@ function ttx_nometa_fix($bench_date) {
     <?php
     echo $storysql,"<br>" ;
     $sql = "update teletrax_benchmark set tt_bench_nometa_fix = '$fixcount' WHERE tt_bench_date = '".$bench_date."' and tt_bench_nometa_fix < '1' ";
-    echo $sql;
+    //echo $sql;
     $query = $CoID->query($sql);
 
     $CoID->close();
