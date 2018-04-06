@@ -190,7 +190,7 @@ function ttx_benchmark_calc($bench_date) {
         //$sql = "SELECT count(*) as nritems FROM pex_story where storyoutlook_status <>'AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
         $bench['nometa'] = 0;
         //$sql = "SELECT count() as nritems FROM teletrax_hits where source_id = '-1' and tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59' group by tt_asset";
-        $sql= "SELECT COUNT(DISTINCT(tt_asset)) as nritems FROM teletrax_hits WHERE source_id = '-1' AND tt_detection_start >= '".$subbench_date." 00:00:00' AND tt_detection_start < '".$subbench_date." 23:59:59'";
+        $sql= "SELECT COUNT(DISTINCT(tt_asset)) as nritems FROM teletrax_hits WHERE source_id = '-1' AND tt_asset <> '' AND tt_detection_start >= '".$subbench_date." 00:00:00' AND tt_detection_start < '".$subbench_date." 23:59:59'";
         // SELECT COUNT(DISTINCT(tt_asset)) FROM teletrax_hits WHERE source_id = '-1' AND tt_detection_start > "2018-02-07"
         //echo $sql;
         $query = $CoID->query($sql);
@@ -301,6 +301,7 @@ function ttx_nometa_fix($bench_date) {
     echo $sql;
     ?>
     <div align='center'> <button class="datepickernometafix waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
+    <h5 align='center'> NO META : <?php echo ctx_real_datestr($bench_date); ?></h5>
     <table class='display striped' id='ttdetails' style='font-size:80%;'>
         <thead>
         <tr>
@@ -339,7 +340,7 @@ function ttx_nometa_fix($bench_date) {
                     $fixcount++;
                 }
                 else {
-                    echo "<td></td>";
+                    echo "<td>NO FIX</td>";
                 }
                 ?>
             </tr>
@@ -349,7 +350,7 @@ function ttx_nometa_fix($bench_date) {
         </tbody>
     </table>
     <?php
-
+    echo $storysql,"<br>" ;
     $sql = "update teletrax_benchmark set tt_bench_nometa_fix = '$fixcount' WHERE tt_bench_date = '".$bench_date."' and tt_bench_nometa_fix < '1' ";
     echo $sql;
     $query = $CoID->query($sql);
