@@ -54,6 +54,7 @@ $date_start = date("Y-m-d");
 <ul id="dropdown3" class="dropdown-content">
     <li><a href="index.php?tb=29">Benchmarks</a></li>
     <li><a href="index.php?tb=22">NO META Detections</a></li>
+    <li><a href="index.php?tb=28">NO META FIX</a></li>
 </ul>
 <ul id="dropdown1" class="dropdown-content">
     <li><a href="index.php?tb=18">DAILY</a></li>
@@ -83,14 +84,15 @@ $date_start = date("Y-m-d");
       <ul class="right hide-on-med-and-down">
 
         <li><a href="index.php">Latest Hits</a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown3">Special Reports<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown3">Special<i class="material-icons right">arrow_drop_down</i></a></li>
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Top Partners Usage<i class="material-icons right">arrow_drop_down</i></a></li>
         <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Top Stories Hit<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-          <li><a style="color:#336699;">REPORTS</a></li>
+          <li><a style="color:#336699;">Special</a></li>
           <li><a href="index.php?tb=29">BENCHMARK</a></li>
+          <li><a href="index.php?tb=28">NO META FIX</a></li>
           <li class="divider"></li>
           <li><a style="color:#336699;">PARTNERS</a></li>
           <li class="divider"></li>
@@ -151,6 +153,7 @@ $date_start = date("Y-m-d");
             case 20  : ttx_top_partners($p_date,'anyday'); break ;
             case 21  : ttx_benchmark_list($p_date); break ;
             case 22  : ttx_nometa($p_date); break ;
+            case 28  : ttx_nometa_fix($p_date); break ;
             case 29  : ttx_benchmark_calc($p_date); break ;
 
             default :
@@ -205,7 +208,7 @@ $date_start = date("Y-m-d");
     </div>
     <div class="footer-copyright enex_lightblue">
       <div class="container">
-      V.1.1 / 06.02.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
+      V.1.2 / 06.04.2018 - Made by Ralph Joachim/ENEX using the Template from <a class="orange-text white-text" href="http://materializecss.com">Materialize</a>
       </div>
     </div>
   </footer>
