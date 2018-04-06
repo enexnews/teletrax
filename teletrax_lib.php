@@ -290,6 +290,44 @@ function ttx_benchmark_calc($bench_date) {
 
 }
 //********************************************
+function ttx_nometa_fix($bench_date) {
+    // added 6.4.2018
+    require('../fact15/fact_config.php');
+    if ($bench_date == $today) { $bench_date = date('Y-m-d', strtotime('-1 day'));}
+    $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
+    $CoID->select_db($config['dbname']);
+    $sql = "SELECT * FROM teletrax_hits WHERE source_id = -1 AND tt_asset <> '' AND tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59'";
+    ?>
+    <table class='display striped' id='ttdetails' style='font-size:80%;'>
+        <thead>
+        <tr>
+            <th>Hit Time</th><th>Partner</th><th>Duration</th><th>Asset</th><th>Source</th><th>Story</th>
+        </tr>
+        </thead> <tbody>
+        <?php
+        //echo $sqlpan1 ;
+        $query = $CoID->query($sql);
+        while ( $row = $query->fetch_array()) {
+            ?>
+            <tr>
+                <td><?php echo $row['tt_detection_start'] ;?></td>
+                <td><?php echo $row['tt_partner'] ;?></td>
+                <td><?php echo substr($row['tt_duration'],3); ?></td>
+                <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,50); ?>...</a></td>
+                <td><?php echo $row['source_partner']; ?></td>
+                <td><strong><?php echo $row['source_title']; ?></strong></td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+    <?php
+
+    $CoID->close();
+}
+
+//********************************************
 function ttx_nometa($bench_date) {
     // added 6.2.2018
     require('../fact15/fact_config.php');
@@ -476,7 +514,7 @@ function ttx_latest() {
     $CoID->close();
 }
 ;
-
+//*******************************************
 
 //********************************************
 function fact15_teletrax($fact_id, $p_date) {
