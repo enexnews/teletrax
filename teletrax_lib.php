@@ -271,7 +271,7 @@ function ttx_benchmark_calc($bench_date) {
             <td><?php echo $row['topstation']; ?></td>
             <td><?php echo $row['storyhits']; ?></td>
             <td class="table_sourcetitle"><strong><a href='https://enex.lu/members/dopedetail/<?php echo $row['storyrecnr']; ?>' target='_blank'><?php echo $row['source_title']; ?></strong></a></strong>
-                <a style="cursor: pointer;" class="modaltrig tooltipped" style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['topstation']; ?> Partners detected!' data-sdate="<?php echo $bench_date; ?>" data-edate="<?php echo $bench_date; ?>" ><i class="material-icons">announcement</i></a></td>
+                <a style="cursor: pointer;" class="modaltrig tooltipped" style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['topstation']; ?> Partners detected!' data-sdate="<?php echo $bench_date; ?>" data-edate="<?php echo $bench_date; ?>" ></a></td>
             <td class="table_sourcedate"><?php echo $row['source_date']; ?></td>
             <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
             <td><?php echo $row['source_partner']; ?></td>
@@ -480,7 +480,7 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
                             <td><?php echo $row['topstation']; ?></td>
                             <td><?php echo $row['storyhits']; ?></td>
                             <td class="table_sourcetitle"><strong><a href='https://enex.lu/members/dopedetail/<?php echo $row['storyrecnr']; ?>' target='_blank'><?php echo $row['source_title']; ?></strong></a></strong>
-                                <a style="cursor: pointer;" class="modaltrig tooltipped" style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['topstation']; ?> Partners detected!' data-sdate="<?php echo $bench_start_date; ?>" data-edate="<?php echo $bench_end_date; ?>" ><i class="material-icons">announcement</i></a></td>
+                                <a style="cursor: pointer;" class="modaltrig tooltipped" style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['topstation']; ?> Partners detected!' data-sdate="<?php echo $bench_start_date; ?>" data-edate="<?php echo $bench_end_date; ?>" ></a></td>
                             <td class="table_sourcedate"><?php echo $row['source_date']; ?></td>
                             <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
                             <td><?php echo $row['source_partner']; ?></td>
