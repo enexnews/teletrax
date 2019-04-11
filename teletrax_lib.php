@@ -441,9 +441,10 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
         $bench_end_date = date('Y-m-d') ;
     }
     elseif($ttx_type=='year') {
+        if ($ttx_filter == "PARTNERS") { $pageparam="11";} else {$pageparam="13";} // switch year out
         echo "<div align='center'>
-        <a href='index.php?tb=11&dt=", (substr(date('Y-m-d', strtotime("-1 year", strtotime($p_date))), 0, 5) . "01-01"), "' class='waves-effect waves-light btn'>", date('Y', strtotime("-1 year", strtotime($p_date))), "</a>
-        <a href='index.php?tb=11&dt=", (substr(date('Y-m-d', strtotime("-0 month", strtotime($p_date))), 0, 5) . "01-01"), "' class='waves-effect waves-light btn blue'>", date('Y', strtotime("0 year", strtotime($p_date))), "</a>";
+        <a href='index.php?tb=$pageparam&dt=", (substr(date('Y-m-d', strtotime("-1 year", strtotime($p_date))), 0, 5) . "01-01"), "' class='waves-effect waves-light btn'>", date('Y', strtotime("-1 year", strtotime($p_date))), "</a>
+        <a href='index.php?tb=$pageparam&dt=", (substr(date('Y-m-d', strtotime("-0 month", strtotime($p_date))), 0, 5) . "01-01"), "' class='waves-effect waves-light btn blue'>", date('Y', strtotime("0 year", strtotime($p_date))), "</a>";
         if (substr($p_date, 0, 5)!= substr($today, 0, 5)) {
             echo " <a href='index.php?tb=11&dt=", (substr(date('Y-m-d', strtotime("-0 month", strtotime($today))), 0, 5) . "01-01"), "' class='waves-effect waves-light btn grey'>", date('Y', strtotime("-0 month", strtotime($today))), "</a>";
         }
