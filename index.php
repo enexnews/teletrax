@@ -33,6 +33,7 @@ $pagetitle[22] = 'NO META DATA DETECTIONS ';
 $pagetitle[29] = 'Date Benchmark ';
 
 $date_start = date("Y-m-d");
+$default_year = (date('Y', strtotime("-5 year", date('Y'))). "01-01");
 ?>
 
 
@@ -116,7 +117,7 @@ $date_start = date("Y-m-d");
           <li><a href="index.php?tb=8">LAST WEEK Sourced/Pool</a></li>
           <li class="divider"></li>
           <li><a href="index.php?tb=12&dt=2018-01-01">LAST YEAR Partners</a></li>
-          <li><a href="index.php?tb=13&dt=2018-01-01">LAST YEAR Sourced/Pool</a></li>
+          <li><a href="index.php?tb=13&dt=<?php echo $default_year ;?>">LAST YEAR Sourced/Pool</a></li>
         </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
