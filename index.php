@@ -75,8 +75,8 @@ $date_start = date("Y-m-d");
     <li><a href="index.php?tb=7">LAST WEEK Partners</a></li>
     <li><a href="index.php?tb=8">LAST WEEK Sourced/Pool</a></li>
     <li class="divider"></li>
-    <li><a href="index.php?tb=12&dt=2017-01-01">LAST YEAR Partners</a></li>
-    <li><a href="index.php?tb=13&dt=2017-01-01">LAST YEAR Sourced/Pool</a></li>
+    <li><a href="index.php?tb=12&dt=2018-01-01">LAST YEAR Partners</a></li>
+    <li><a href="index.php?tb=13&dt=2018-01-01">LAST YEAR Sourced/Pool</a></li>
 
 </ul>
   <nav class="enex_blue2" role="navigation">
@@ -115,8 +115,8 @@ $date_start = date("Y-m-d");
           <li><a href="index.php?tb=7">LAST WEEK Partners</a></li>
           <li><a href="index.php?tb=8">LAST WEEK Sourced/Pool</a></li>
           <li class="divider"></li>
-          <li><a href="index.php?tb=12&dt=2017-01-01">LAST YEAR Partners</a></li>
-          <li><a href="index.php?tb=13&dt=2017-01-01">LAST YEAR Sourced/Pool</a></li>
+          <li><a href="index.php?tb=12&dt=2018-01-01">LAST YEAR Partners</a></li>
+          <li><a href="index.php?tb=13&dt=2018-01-01">LAST YEAR Sourced/Pool</a></li>
         </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
