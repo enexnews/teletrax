@@ -517,7 +517,7 @@ $default_year = (date('Y', strtotime("-1 year", strtotime($today)))."-01-01");
     }).css('cursor', 'pointer');
 
     $('.datepicker').on('mousedown',function(event){
-        event.preventDefault();
+        event.preventDefault();  // fixing chrome picker window sudden close
     })
 
     $('.datepickerbench').pickadate({
@@ -537,7 +537,7 @@ $default_year = (date('Y', strtotime("-1 year", strtotime($today)))."-01-01");
     }).css('cursor', 'pointer');
 
     $('.datepickerbench').on('mousedown',function(event){
-        event.preventDefault();
+        event.preventDefault(); // fixing chrome picker window sudden close
     })
 
     $('.datepickernometafix').pickadate({
@@ -554,6 +554,10 @@ $default_year = (date('Y', strtotime("-1 year", strtotime($today)))."-01-01");
         },
         closeOnSelect: false // Close upon selecting a date,
     }).css('cursor', 'pointer');
+
+    $('.datepickernometafix').on('mousedown',function(event){
+        event.preventDefault();  // fixing chrome picker window sudden close
+    })
 
     $('.datepickerpartners').pickadate({
         selectMonths: true, // Creates a dropdown to control month
@@ -572,7 +576,7 @@ $default_year = (date('Y', strtotime("-1 year", strtotime($today)))."-01-01");
     }).css('cursor', 'pointer');
 
     $('.datepickerpartners').on('mousedown',function(event){
-        event.preventDefault();
+        event.preventDefault();  // fixing chrome picker window sudden close
     })
 
     $('#topstories_monthtable').dataTable({
