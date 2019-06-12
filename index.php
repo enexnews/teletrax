@@ -499,6 +499,7 @@ $default_year = (date('Y', strtotime("-1 year", strtotime($today)))."-01-01");
 </script>
 <script>
     $('.modal').modal();
+
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -515,6 +516,10 @@ $default_year = (date('Y', strtotime("-1 year", strtotime($today)))."-01-01");
         closeOnSelect: false // Close upon selecting a date,
     }).css('cursor', 'pointer');
 
+    $('.datepicker').on('mousedown',function(event){
+        event.preventDefault();
+    })
+
     $('.datepickerbench').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -530,6 +535,10 @@ $default_year = (date('Y', strtotime("-1 year", strtotime($today)))."-01-01");
         },
         closeOnSelect: false // Close upon selecting a date,
     }).css('cursor', 'pointer');
+
+    $('.datepickerbench').on('mousedown',function(event){
+        event.preventDefault();
+    })
 
     $('.datepickernometafix').pickadate({
         selectMonths: true, // Creates a dropdown to control month
@@ -561,6 +570,10 @@ $default_year = (date('Y', strtotime("-1 year", strtotime($today)))."-01-01");
         },
         closeOnSelect: false // Close upon selecting a date,
     }).css('cursor', 'pointer');
+
+    $('.datepickerpartners').on('mousedown',function(event){
+        event.preventDefault();
+    })
 
     $('#topstories_monthtable').dataTable({
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
