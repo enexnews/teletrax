@@ -88,7 +88,7 @@ function ttx_top_partners($p_date,$ttx_type) {
                     </tr>
                     </thead> <tbody>
                     <?php
-                    $sql = "SELECT tt_partner, COUNT(DISTINCT(tt_asset)) AS storycount,COUNT(tt_asset) AS hitcount FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date."' AND tt_detection_start < '".$bench_end_date."' GROUP BY tt_partner ORDER BY storycount DESC";
+                    $sql = "SELECT tt_partner, COUNT(DISTINCT(tt_asset)) AS storycount,COUNT(tt_asset) AS hitcount FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date."' AND tt_detection_start < '".$bench_end_date."'  and selfhit <> 'YES' GROUP BY tt_partner ORDER BY storycount DESC";
 
                     $query = $CoID->query($sql);
                     while ( $row = $query->fetch_array()) {
@@ -117,7 +117,7 @@ function ttx_item_hits($ttx_id, $bench_start_date,$bench_end_date) {
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
     //$sqlpan1 = "SELECT * FROM teletrax_hits ORDER BY tt_detection_start desc limit 60 ";
-    $sqlpan1 = "SELECT * FROM teletrax_hits WHERE source_id = $ttx_id and (tt_detection_start >= '" . $bench_start_date . " 00:00:00' AND tt_detection_start < '" . $bench_end_date . " 23:59:59' ) ORDER BY tt_detection_start asc ";
+    $sqlpan1 = "SELECT * FROM teletrax_hits WHERE source_id = $ttx_id and (tt_detection_start >= '" . $bench_start_date . " 00:00:00' AND tt_detection_start < '" . $bench_end_date . " 23:59:59' ) and selfhit <> 'YES' ORDER BY tt_detection_start asc ";
     ?>
     <table class='display striped' id='ttdetails' style='font-size:70%;'>
         <thead>
@@ -190,7 +190,7 @@ function ttx_benchmark_calc($bench_date) {
         //$sql = "SELECT count(*) as nritems FROM pex_story where storyoutlook_status <>'AVAILABLE' and storydate = '$bench_date' and story_teletrax = 1 ";
         $bench['nometa'] = 0;
         //$sql = "SELECT count() as nritems FROM teletrax_hits where source_id = '-1' and tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59' group by tt_asset";
-        $sql= "SELECT COUNT(DISTINCT(tt_asset)) as nritems FROM teletrax_hits WHERE source_id = '-1' AND tt_asset <> '' AND tt_detection_start >= '".$subbench_date." 00:00:00' AND tt_detection_start < '".$subbench_date." 23:59:59'";
+        $sql= "SELECT COUNT(DISTINCT(tt_asset)) as nritems FROM teletrax_hits WHERE source_id = '-1' AND tt_asset <> '' AND tt_detection_start >= '".$subbench_date." 00:00:00' AND tt_detection_start < '".$subbench_date." 23:59:59'  and selfhit <> 'YES' ";
         // SELECT COUNT(DISTINCT(tt_asset)) FROM teletrax_hits WHERE source_id = '-1' AND tt_detection_start > "2018-02-07"
         //echo $sql;
         $query = $CoID->query($sql);
@@ -261,7 +261,7 @@ function ttx_benchmark_calc($bench_date) {
     <?php
     $tomorrow = date('Y-m-d',strtotime("+1 days",strtotime($bench_date))) ;
     $sql = "SELECT *,source_title,COUNT(DISTINCT(tt_partner)) AS topstation, COUNT(DISTINCT tt_asset) as storyhits, items.storyrecnr FROM teletrax_hits,pex_story items WHERE tt_detection_start >= '".$bench_date." 00:00:00' AND 
-                            tt_detection_start < '".$tomorrow." 23:59:59'  AND source_id <> '-1' and source_date ='".$bench_date."' and source_id = items.story_step_id and items.storyoutlook_status='AVAILABLE' and items.story_teletrax=1 group by tt_asset ORDER BY topstation DESC";
+                            tt_detection_start < '".$tomorrow." 23:59:59'  AND source_id <> '-1' and source_date ='".$bench_date."' and source_id = items.story_step_id and items.storyoutlook_status='AVAILABLE' and items.story_teletrax=1  and selfhit <> 'YES' group by tt_asset ORDER BY topstation DESC";
 
     $query = $CoID->query($sql);
     while ( $row = $query->fetch_array()) {
@@ -297,7 +297,7 @@ function ttx_nometa_fix($bench_date) {
     if ($bench_date == $today) { $bench_date = date('Y-m-d', strtotime('-1 day'));}
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
-    $sql = "SELECT * FROM teletrax_hits WHERE source_id = -1 AND tt_asset <> '' AND tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59'";
+    $sql = "SELECT * FROM teletrax_hits WHERE source_id = -1 AND tt_asset <> '' AND tt_detection_start >= '".$bench_date." 00:00:00' AND tt_detection_start < '".$bench_date." 23:59:59'  and selfhit <> 'YES' ";
     //echo $sql;
     ?>
     <div align='center'> <button class="datepickernometafix waves-effect waves-light btn enex_lightblue"><i class="material-icons left">date_range</i>SWITCH DATE</button></div>
@@ -471,7 +471,7 @@ function ttx_top_stories_month($p_date,$ttx_type,$ttx_filter,$ttx_limit) {
                     <?php
 
                     $sql = "SELECT *,source_title,COUNT(DISTINCT(tt_partner)) AS topstation, COUNT(tt_asset) as storyhits, items.storyrecnr FROM teletrax_hits,pex_story items WHERE tt_detection_start >= '".$bench_start_date." 00:00:00' AND 
-                            tt_detection_start < '".$bench_end_date." 23:59:59'  AND source_id <> '-1' ".$ttx_condition." and source_id = items.story_step_id group by tt_asset ORDER BY topstation DESC,storyhits DESC limit ".$ttx_limit;
+                            tt_detection_start < '".$bench_end_date." 23:59:59'  AND source_id <> '-1' ".$ttx_condition." and source_id = items.story_step_id and selfhit <> 'YES'  group by tt_asset ORDER BY topstation DESC,storyhits DESC limit ".$ttx_limit;
 
                     $query = $CoID->query($sql);
                     while ( $row = $query->fetch_array()) {
@@ -555,12 +555,12 @@ function fact15_teletrax($fact_id, $p_date) {
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
     if ($fact_id == 0 ) {
-        $sqlpan1 = "SELECT * FROM teletrax_hits WHERE (tt_detection_start >= '".$p_date." 00:00:00' AND tt_detection_start < '".$p_date." 23:59:59' )  ORDER BY tt_detection_start asc ";;
+        $sqlpan1 = "SELECT * FROM teletrax_hits WHERE (tt_detection_start >= '".$p_date." 00:00:00' AND tt_detection_start < '".$p_date." 23:59:59' )  and selfhit <> 'YES'  ORDER BY tt_detection_start asc ";;
     } else {
         if ($p_date == $today) {
-            $sqlpan1 = "SELECT * FROM teletrax_hits WHERE source_id = $fact_id ORDER BY tt_detection_start asc ";
+            $sqlpan1 = "SELECT * FROM teletrax_hits WHERE source_id = $fact_id  and selfhit <> 'YES' ORDER BY tt_detection_start asc ";
         } else {
-            $sqlpan1 = "SELECT * FROM teletrax_hits WHERE source_id = $fact_id and (tt_detection_start >= '" . $p_date . " 00:00:00' AND tt_detection_start < '" . $p_date . " 23:59:59' ) ORDER BY tt_detection_start asc ";
+            $sqlpan1 = "SELECT * FROM teletrax_hits WHERE source_id = $fact_id and (tt_detection_start >= '" . $p_date . " 00:00:00' AND tt_detection_start < '" . $p_date . " 23:59:59' ) and selfhit <> 'YES'  ORDER BY tt_detection_start asc ";
             $query = $CoID->query($sqlpan1);
             $row = $query->fetch_array();
             $p_date = substr($row['tt_detection_start'], 0, 10);
@@ -643,7 +643,7 @@ function fact15_teletrax($fact_id, $p_date) {
                     </tr>
                     </thead> <tbody>
                     <?php
-                    $sql = "SELECT tt_partner, COUNT(DISTINCT(tt_asset)) AS storycount,COUNT(tt_asset) AS hitcount FROM teletrax_hits WHERE tt_detection_start >= '".$p_date." 00:00:00' AND tt_detection_start < '".$p_date." 23:59:59' GROUP BY tt_partner ORDER BY storycount DESC";
+                    $sql = "SELECT tt_partner, COUNT(DISTINCT(tt_asset)) AS storycount,COUNT(tt_asset) AS hitcount FROM teletrax_hits WHERE tt_detection_start >= '".$p_date." 00:00:00' AND tt_detection_start < '".$p_date." 23:59:59' and selfhit <> 'YES'  GROUP BY tt_partner ORDER BY storycount DESC";
                     // echo $sql;
                     $query = $CoID->query($sql);
                     while ( $row = $query->fetch_array()) {
@@ -669,7 +669,7 @@ function fact15_teletrax($fact_id, $p_date) {
                     </tr>
                     </thead> <tbody>
                     <?php
-                    $sql = "SELECT *,source_title,COUNT(DISTINCT(tt_partner)) AS topstation, COUNT(tt_asset) as storyhits FROM teletrax_hits WHERE tt_detection_start >= '".$p_date." 00:00:00' AND tt_detection_start < '".$p_date." 23:59:59' AND source_id <> '-1' group by tt_asset ORDER BY topstation DESC";
+                    $sql = "SELECT *,source_title,COUNT(DISTINCT(tt_partner)) AS topstation, COUNT(tt_asset) as storyhits FROM teletrax_hits WHERE tt_detection_start >= '".$p_date." 00:00:00' AND tt_detection_start < '".$p_date." 23:59:59' AND source_id <> '-1' and selfhit <> 'YES'  group by tt_asset ORDER BY topstation DESC";
                     // echo $sql;
                     $query = $CoID->query($sql);
                     while ( $row = $query->fetch_array()) {
@@ -698,7 +698,7 @@ function fact15_teletrax($fact_id, $p_date) {
                     </thead> <tbody>
                     <?php
                     $sql = "SELECT *,source_title,COUNT(DISTINCT(tt_partner)) AS topstation, COUNT(tt_asset) as storyhits FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date." 00:00:00' AND 
-                            tt_detection_start < '".$bench_end_date." 23:59:59'  AND source_id <> '-1' group by tt_asset ORDER BY topstation DESC ";
+                            tt_detection_start < '".$bench_end_date." 23:59:59'  AND source_id <> '-1'  and selfhit <> 'YES' group by tt_asset ORDER BY topstation DESC ";
                     //echo $sql;
                     $query = $CoID->query($sql);
                     while ( $row = $query->fetch_array()) {
@@ -727,7 +727,7 @@ function fact15_teletrax($fact_id, $p_date) {
                     </tr>
                     </thead> <tbody>
                     <?php
-                    $sql = "SELECT tt_partner, COUNT(DISTINCT(tt_asset)) AS storycount,COUNT(tt_asset) AS hitcount FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date."' AND tt_detection_start < '".$bench_end_date."' GROUP BY tt_partner ORDER BY storycount DESC";
+                    $sql = "SELECT tt_partner, COUNT(DISTINCT(tt_asset)) AS storycount,COUNT(tt_asset) AS hitcount FROM teletrax_hits WHERE tt_detection_start >= '".$bench_start_date."' AND tt_detection_start < '".$bench_end_date."' and selfhit <> 'YES'  GROUP BY tt_partner ORDER BY storycount DESC";
                     // echo $sql;
                     $query = $CoID->query($sql);
                     while ( $row = $query->fetch_array()) {
