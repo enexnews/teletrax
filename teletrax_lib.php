@@ -506,12 +506,12 @@ function ttx_latest() {
     require('../fact15/fact_config.php');
     $CoID = new mysqli($config['dbhost'], $config['dblogin'], $config['dbpass']);
     $CoID->select_db($config['dbname']);
-    $sqlpan1 = "SELECT * FROM teletrax_hits ORDER BY tt_detection_start desc limit 60 ";
+    $sqlpan1 = "SELECT * FROM teletrax_hits ORDER BY tt_detection_start desc limit 200 ";
     ?>
     <table class='display striped' id='ttdetails' style='font-size:80%;'>
                     <thead>
                     <tr>
-                        <th>Hit Time</th><th>Story Date</th><th>Partner</th><th>Program</th><th>Duration</th><th>Asset</th><th>Source</th><th>Story</th><th>STEP ID</th>
+                        <th>Hit Time</th><th>Story Date</th><th>Partner</th><th>Program</th><th>Duration</th><th>Asset</th><th>Source</th><th>Story</th><th>Age</th><th>STEP ID</th>
                     </tr>
                     </thead> <tbody>
                     <?php
@@ -535,6 +535,7 @@ function ttx_latest() {
                             <td><a class='tooltipped' style='cursor: pointer;' data-position='top' data-delay='20' data-tooltip='<?php echo $row['tt_asset']; ?>'><?php echo substr($row['tt_asset'],0,25); ?>...</a></td>
                             <td><?php echo $row['source_partner']; ?></td>
                             <td><strong><?php echo $row['source_title']; ?></strong></td>
+                            <td><?php echo $row['tt_assetage']; ?></td>
                             <td><?php echo $row['source_id']; ?></td>
                         </tr>
                         <?php
